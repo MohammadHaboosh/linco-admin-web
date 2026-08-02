@@ -1,0 +1,624 @@
+.appShell {
+  min-height: 100vh;
+  background: var(--linco-canvas);
+}
+
+.sidebar {
+  position: fixed;
+  inset: 0 auto 0 0;
+  z-index: 50;
+  width: 264px;
+  display: flex;
+  flex-direction: column;
+  padding: 24px 16px 18px;
+  background: var(--linco-sidebar-gradient);
+  color: #fff;
+  box-shadow: 10px 0 35px rgba(7, 26, 53, 0.12);
+}
+
+.brandRow {
+  min-height: 50px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 0 7px 0 5px;
+}
+
+.brandMark {
+  width: 43px;
+  height: 43px;
+  display: grid;
+  flex: 0 0 auto;
+  place-items: center;
+  border: 2px solid rgba(71, 191, 255, 0.75);
+  border-radius: 13px;
+  background: #fff;
+  overflow: hidden;
+}
+
+.brandMark img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.brandName {
+  margin: 0;
+  color: #fff;
+  font-size: 1.35rem;
+  font-weight: 800;
+  letter-spacing: -0.04em;
+  line-height: 1.1;
+}
+
+.brandName span {
+  color: var(--linco-sky-400);
+}
+
+.brandMeta {
+  margin: 3px 0 0;
+  color: rgba(255, 255, 255, 0.54);
+  font-size: 0.61rem;
+  font-weight: 700;
+  letter-spacing: 0.13em;
+  text-transform: uppercase;
+}
+
+.closeMenu {
+  display: none;
+  margin-left: auto;
+  padding: 6px;
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.08);
+  color: #fff;
+}
+
+.navigation {
+  flex: 1;
+  margin-top: 30px;
+  overflow-y: auto;
+}
+
+.navSection + .navSection {
+  margin-top: 23px;
+}
+
+.navLabel {
+  margin: 0 12px 8px;
+  color: rgba(255, 255, 255, 0.4);
+  font-size: 0.62rem;
+  font-weight: 800;
+  letter-spacing: 0.13em;
+  text-transform: uppercase;
+}
+
+.navList {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.navItem {
+  position: relative;
+  width: 100%;
+  min-height: 44px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 0 12px;
+  border-radius: 11px;
+  background: transparent;
+  color: rgba(226, 232, 240, 0.76);
+  font-size: 0.82rem;
+  font-weight: 650;
+  text-align: left;
+  transition: background 170ms ease, color 170ms ease, transform 170ms ease;
+}
+
+.navItem:hover {
+  background: rgba(255, 255, 255, 0.06);
+  color: #fff;
+  transform: translateX(2px);
+}
+
+.navItemActive {
+  background: rgba(71, 191, 255, 0.15);
+  color: #fff;
+  box-shadow: inset 3px 0 var(--linco-sky-400);
+}
+
+.navItemActive svg {
+  color: var(--linco-sky-400);
+}
+
+.navBadge {
+  min-width: 23px;
+  margin-left: auto;
+  padding: 2px 6px;
+  border-radius: 999px;
+  background: rgba(71, 191, 255, 0.16);
+  color: var(--linco-sky-400);
+  font-size: 0.62rem;
+  font-weight: 800;
+  text-align: center;
+}
+
+.sidebarBottom {
+  display: grid;
+  gap: 12px;
+}
+
+.supportCard {
+  position: relative;
+  padding: 16px;
+  border: 1px solid rgba(255, 255, 255, 0.09);
+  border-radius: 15px;
+  background: rgba(255, 255, 255, 0.055);
+  overflow: hidden;
+}
+
+.supportCard::after {
+  position: absolute;
+  right: -28px;
+  bottom: -35px;
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  background: rgba(71, 191, 255, 0.08);
+  content: "";
+}
+
+.supportIcon {
+  width: 34px;
+  height: 34px;
+  display: grid;
+  place-items: center;
+  border-radius: 10px;
+  background: rgba(71, 191, 255, 0.15);
+  color: var(--linco-sky-400);
+}
+
+.supportCard p {
+  margin: 12px 0 4px;
+  font-size: 0.76rem;
+  font-weight: 750;
+}
+
+.supportCard > span:not(.supportIcon) {
+  display: block;
+  color: rgba(255, 255, 255, 0.5);
+  font-size: 0.65rem;
+}
+
+.supportCard button {
+  position: relative;
+  z-index: 1;
+  margin-top: 13px;
+  padding: 0;
+  background: transparent;
+  color: var(--linco-sky-400);
+  font-size: 0.68rem;
+  font-weight: 800;
+}
+
+.signOut {
+  min-height: 42px;
+  display: flex;
+  align-items: center;
+  gap: 11px;
+  padding: 0 12px;
+  border-radius: 10px;
+  background: transparent;
+  color: rgba(255, 255, 255, 0.58);
+  font-size: 0.76rem;
+  font-weight: 650;
+}
+
+.signOut:hover {
+  background: rgba(239, 68, 68, 0.1);
+  color: #fca5a5;
+}
+
+.mainColumn {
+  width: calc(100% - 264px);
+  min-width: 0;
+  min-height: 100vh;
+  margin-left: 264px;
+  overflow-x: hidden;
+}
+
+.topbar {
+  position: sticky;
+  top: 0;
+  z-index: 30;
+  height: 72px;
+  display: grid;
+  grid-template-columns: minmax(180px, 1fr) minmax(260px, 500px) minmax(300px, 1fr);
+  align-items: center;
+  gap: 22px;
+  padding: 0 30px;
+  border-bottom: 1px solid rgba(226, 232, 240, 0.9);
+  background: rgba(255, 255, 255, 0.93);
+  box-shadow: 0 4px 18px rgba(10, 42, 84, 0.03);
+  backdrop-filter: blur(14px);
+}
+
+.topbarLeft,
+.topbarActions,
+.breadcrumb,
+.profileButton,
+.systemStatus {
+  display: flex;
+  align-items: center;
+}
+
+.menuButton {
+  display: none;
+  width: 40px;
+  height: 40px;
+  place-items: center;
+  border-radius: 10px;
+  background: var(--linco-blue-50);
+  color: var(--linco-navy-900);
+}
+
+.breadcrumb {
+  gap: 6px;
+  color: var(--linco-text-soft);
+  font-size: 0.76rem;
+}
+
+.breadcrumb strong {
+  color: var(--linco-navy-900);
+  font-weight: 750;
+}
+
+.globalSearch {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.globalSearch > svg {
+  position: absolute;
+  left: 13px;
+  color: var(--linco-text-soft);
+}
+
+.globalSearch input {
+  width: 100%;
+  height: 40px;
+  padding: 0 58px 0 40px;
+  border: 1px solid var(--linco-border);
+  border-radius: 10px;
+  background: var(--linco-surface-soft);
+  color: var(--linco-text);
+  font-size: 0.76rem;
+}
+
+.globalSearch input::placeholder {
+  color: var(--linco-text-soft);
+}
+
+.globalSearch span {
+  position: absolute;
+  right: 9px;
+  padding: 3px 6px;
+  border: 1px solid var(--linco-border);
+  border-radius: 5px;
+  background: #fff;
+  color: var(--linco-text-soft);
+  font-size: 0.58rem;
+  font-weight: 700;
+}
+
+.topbarActions {
+  justify-content: flex-end;
+  gap: 11px;
+}
+
+.systemStatus {
+  gap: 7px;
+  color: var(--linco-text-muted);
+  font-size: 0.68rem;
+  font-weight: 700;
+  white-space: nowrap;
+}
+
+.systemStatus i {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: var(--linco-success);
+  box-shadow: 0 0 0 4px rgba(16, 185, 129, 0.11);
+}
+
+.topbarIconButton {
+  position: relative;
+  width: 39px;
+  height: 39px;
+  display: grid;
+  place-items: center;
+  border: 1px solid var(--linco-border);
+  border-radius: 10px;
+  background: #fff;
+  color: var(--linco-text-muted);
+}
+
+.notificationDot {
+  position: absolute;
+  top: -5px;
+  right: -4px;
+  min-width: 17px;
+  height: 17px;
+  display: grid;
+  place-items: center;
+  border: 2px solid #fff;
+  border-radius: 50%;
+  background: var(--linco-danger);
+  color: #fff;
+  font-size: 0.52rem;
+  font-weight: 800;
+}
+
+.notificationWrap {
+  position: relative;
+}
+
+.notificationMenu {
+  position: absolute;
+  top: calc(100% + 13px);
+  right: 0;
+  width: min(360px, calc(100vw - 28px));
+  padding: 8px;
+  border: 1px solid var(--linco-border);
+  border-radius: 15px;
+  background: #fff;
+  box-shadow: var(--linco-shadow-lg);
+  animation: menuIn 180ms ease-out;
+}
+
+@keyframes menuIn {
+  from { opacity: 0; transform: translateY(-6px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.notificationHeader {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 10px 10px 13px;
+  border-bottom: 1px solid var(--linco-border);
+}
+
+.notificationHeader strong,
+.notificationHeader span {
+  display: block;
+}
+
+.notificationHeader strong {
+  color: var(--linco-navy-900);
+  font-size: 0.84rem;
+}
+
+.notificationHeader span {
+  margin-top: 2px;
+  color: var(--linco-text-soft);
+  font-size: 0.65rem;
+}
+
+.notificationHeader button {
+  padding: 2px;
+  background: transparent;
+  color: var(--linco-blue-600);
+  font-size: 0.62rem;
+  font-weight: 750;
+}
+
+.notificationItem {
+  display: grid;
+  grid-template-columns: 35px 1fr;
+  gap: 10px;
+  padding: 12px 9px;
+  border-radius: 10px;
+}
+
+.notificationItem:hover {
+  background: var(--linco-surface-soft);
+}
+
+.notificationIcon {
+  width: 35px;
+  height: 35px;
+  display: grid;
+  place-items: center;
+  border-radius: 10px;
+  background: var(--linco-blue-50);
+  color: var(--linco-blue-600);
+}
+
+.notificationIcon[data-tone="warning"] {
+  background: var(--linco-warning-soft);
+  color: var(--linco-warning);
+}
+
+.notificationIcon[data-tone="success"] {
+  background: var(--linco-success-soft);
+  color: var(--linco-success);
+}
+
+.notificationItem strong,
+.notificationItem span,
+.notificationItem small {
+  display: block;
+}
+
+.notificationItem strong {
+  color: var(--linco-navy-900);
+  font-size: 0.72rem;
+}
+
+.notificationItem span {
+  margin-top: 2px;
+  color: var(--linco-text-muted);
+  font-size: 0.64rem;
+}
+
+.notificationItem small {
+  margin-top: 5px;
+  color: var(--linco-text-soft);
+  font-size: 0.58rem;
+}
+
+.profileButton {
+  min-width: 0;
+  gap: 9px;
+  padding: 3px 4px 3px 3px;
+  background: transparent;
+  text-align: left;
+}
+
+.profileAvatar {
+  width: 37px;
+  height: 37px;
+  display: grid;
+  flex: 0 0 auto;
+  place-items: center;
+  border-radius: 11px;
+  background: var(--linco-gradient);
+  color: #fff;
+  font-size: 0.68rem;
+  font-weight: 800;
+}
+
+.profileCopy strong,
+.profileCopy small {
+  display: block;
+  white-space: nowrap;
+}
+
+.profileCopy strong {
+  color: var(--linco-navy-900);
+  font-size: 0.72rem;
+  font-weight: 800;
+}
+
+.profileCopy small {
+  margin-top: 1px;
+  color: var(--linco-text-soft);
+  font-size: 0.6rem;
+}
+
+.content {
+  width: 100%;
+  max-width: 1600px;
+  min-width: 0;
+  margin: 0 auto;
+  padding: 32px;
+  animation: contentIn 300ms ease-out;
+}
+
+@keyframes contentIn {
+  from { opacity: 0; transform: translateY(7px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.overlay {
+  display: none;
+}
+
+@media (max-width: 1280px) {
+  .topbar {
+    grid-template-columns: 190px minmax(230px, 1fr) auto;
+    padding: 0 22px;
+  }
+
+  .systemStatus,
+  .profileCopy,
+  .profileButton > svg {
+    display: none;
+  }
+}
+
+@media (max-width: 1024px) {
+  .sidebar {
+    transform: translateX(-105%);
+    transition: transform 260ms cubic-bezier(0.22, 1, 0.36, 1);
+  }
+
+  .sidebarOpen {
+    transform: translateX(0);
+  }
+
+  .closeMenu,
+  .menuButton {
+    display: grid;
+  }
+
+  .overlay {
+    position: fixed;
+    inset: 0;
+    z-index: 45;
+    display: block;
+    visibility: hidden;
+    background: rgba(7, 26, 53, 0.48);
+    opacity: 0;
+    backdrop-filter: blur(3px);
+    transition: opacity 220ms ease, visibility 220ms ease;
+  }
+
+  .overlayVisible {
+    visibility: visible;
+    opacity: 1;
+  }
+
+  .mainColumn {
+    width: 100%;
+    margin-left: 0;
+  }
+
+  .topbar {
+    grid-template-columns: auto minmax(220px, 1fr) auto;
+  }
+
+  .topbarLeft {
+    gap: 12px;
+  }
+}
+
+@media (max-width: 720px) {
+  .topbar {
+    height: 64px;
+    grid-template-columns: 1fr auto;
+    gap: 10px;
+    padding: 0 15px;
+  }
+
+  .globalSearch,
+  .breadcrumb,
+  .profileButton {
+    display: none;
+  }
+
+  .topbarLeft {
+    min-width: 0;
+  }
+
+  .topbarLeft::after {
+    color: var(--linco-navy-900);
+    content: "LinCo Admin";
+    font-size: 0.85rem;
+    font-weight: 800;
+  }
+
+  .content {
+    padding: 22px 15px 30px;
+  }
+
+  .notificationMenu {
+    position: fixed;
+    top: 70px;
+    right: 12px;
+  }
+}

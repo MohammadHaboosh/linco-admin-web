@@ -1,0 +1,36 @@
+:root {
+  --linco-navy-950: #071a35;
+  --linco-navy-900: #0a2a54;
+  --linco-navy-800: #123c73;
+  --linco-navy-700: #1b4b88;
+  --linco-blue-600: #1a56db;
+  --linco-blue-500: #2e6be6;
+  --linco-sky-400: #47bfff;
+  --linco-blue-100: #dbeafe;
+  --linco-blue-50: #eff6ff;
+  --linco-canvas: #f5f7fb;
+  --linco-surface: #ffffff;
+  --linco-surface-soft: #f8fafc;
+  --linco-border: #e2e8f0;
+  --linco-border-strong: #cbd5e1;
+  --linco-text: #10233f;
+  --linco-text-muted: #64748b;
+  --linco-text-soft: #94a3b8;
+  --linco-success: #10b981;
+  --linco-success-soft: #ecfdf5;
+  --linco-warning: #f59e0b;
+  --linco-warning-soft: #fffbeb;
+  --linco-danger: #ef4444;
+  --linco-danger-soft: #fef2f2;
+  --linco-violet: #5b21b6;
+  --linco-gradient: linear-gradient(135deg, #0a2a54 0%, #1e3a8a 100%);
+  --linco-sidebar-gradient: linear-gradient(180deg, #0a2a54 0%, #071a35 100%);
+  --linco-shadow-sm: 0 2px 8px rgba(10, 42, 84, 0.05);
+  --linco-shadow-md: 0 12px 30px rgba(10, 42, 84, 0.08);
+  --linco-shadow-lg: 0 22px 50px rgba(10, 42, 84, 0.14);
+  --linco-radius-sm: 8px;
+  --linco-radius-md: 12px;
+  --linco-radius-lg: 16px;
+  --linco-radius-xl: 22px;
+  --linco-font: "Plus Jakarta Sans", "Segoe UI", sans-serif;
+}
