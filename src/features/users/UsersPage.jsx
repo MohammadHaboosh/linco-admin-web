@@ -115,7 +115,7 @@ const UsersPage = () => {
     if (
       isActive
       && !window.confirm(
-        `Suspend ${fullName}'s account? They will not be able to sign in until the account is reactivated.`,
+        `Suspend ${fullName}'s account?`,
       )
     ) {
       return;

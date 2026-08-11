@@ -79,7 +79,6 @@ const AdminLayout = ({ activePage, children, onNavigate, onSignOut, user }) => {
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const userDisplayName = getUserDisplayName(user);
   const userInitials = getUserInitials(user);
-  const showSearch = activePage === "users" || activePage === "companies";
 
   return (
     <div className={styles.appShell}>
@@ -108,14 +107,6 @@ const AdminLayout = ({ activePage, children, onNavigate, onSignOut, user }) => {
               <strong>{pageTitles[activePage]}</strong>
             </div>
           </div>
-
-          {showSearch && (
-            <label className={styles.globalSearch}>
-              <Icon name="search" size={18} />
-              <input aria-label="Search the platform" placeholder="Search companies, users or courses..." type="search" />
-              <span>⌘ K</span>
-            </label>
-          )}
 
           <div className={styles.topbarActions}>
             <div className={styles.profile}>
