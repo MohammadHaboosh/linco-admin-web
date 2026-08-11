@@ -380,6 +380,10 @@
   margin-bottom: 20px;
 }
 
+.summaryStripFour {
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+}
+
 .summaryCard {
   display: flex;
   align-items: center;
@@ -416,6 +420,109 @@
   margin-top: 1px;
   color: var(--linco-text-muted);
   font-size: 0.69rem;
+}
+
+.tableState {
+  height: 150px;
+  text-align: center;
+  white-space: normal !important;
+}
+
+.tableState > div {
+  display: grid;
+  justify-items: center;
+  gap: 6px;
+}
+
+.tableState strong {
+  color: var(--linco-navy-900);
+  font-size: 0.84rem;
+}
+
+.tableState span {
+  color: var(--linco-text-muted);
+  font-size: 0.72rem;
+}
+
+.tableState button {
+  margin-top: 5px;
+  padding: 7px 12px;
+  border-radius: 8px;
+  background: var(--linco-blue-600);
+  color: #fff;
+  font-size: 0.7rem;
+  font-weight: 750;
+}
+
+.statsError {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  margin: -8px 0 18px;
+  padding: 10px 13px;
+  border: 1px solid #fecaca;
+  border-radius: 10px;
+  background: var(--linco-danger-soft);
+  color: #b91c1c;
+  font-size: 0.72rem;
+}
+
+.statsError button {
+  flex: 0 0 auto;
+  padding: 5px 9px;
+  border-radius: 7px;
+  background: #fff;
+  color: #b91c1c;
+  font-size: 0.66rem;
+  font-weight: 750;
+}
+
+.actionFeedback {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin: -7px 0 14px;
+  padding: 10px 13px;
+  border: 1px solid #a7f3d0;
+  border-radius: 10px;
+  background: var(--linco-success-soft);
+  color: #047857;
+  font-size: 0.72rem;
+  font-weight: 650;
+}
+
+.actionFeedback[data-tone="error"] {
+  border-color: #fecaca;
+  background: var(--linco-danger-soft);
+  color: #b91c1c;
+}
+
+.accountActionButton {
+  min-width: 82px;
+  height: 32px;
+  padding: 0 11px;
+  border: 1px solid transparent;
+  border-radius: 8px;
+  font-size: 0.68rem;
+  font-weight: 750;
+}
+
+.accountActionButton[data-action="suspend"] {
+  border-color: #fecaca;
+  background: var(--linco-danger-soft);
+  color: #dc2626;
+}
+
+.accountActionButton[data-action="activate"] {
+  border-color: #a7f3d0;
+  background: var(--linco-success-soft);
+  color: #059669;
+}
+
+.accountActionButton:disabled {
+  cursor: wait;
+  opacity: 0.55;
 }
 
 .courseTitleCell {
@@ -700,6 +807,10 @@
 
   .pulseStats {
     max-width: 520px;
+  }
+
+  .summaryStripFour {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 }
 

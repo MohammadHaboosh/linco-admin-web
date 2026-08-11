@@ -7,15 +7,6 @@ export const companies = [
   { id: 6, initials: "QC", name: "Quantum Code", slug: "quantum.linco", plan: "Professional", members: 271, departments: 6, joined: "Jul 08, 2026", status: "Active" },
 ];
 
-export const users = [
-  { id: 1, initials: "SA", name: "Sara Ahmad", email: "sara@techcorp.io", role: "Owner", company: "TechCorp", lastSeen: "2 minutes ago", status: "Active" },
-  { id: 2, initials: "OK", name: "Omar Khalil", email: "omar@nexa.ac", role: "Manager", company: "Nexa Academy", lastSeen: "18 minutes ago", status: "Active" },
-  { id: 3, initials: "LM", name: "Lina Mansour", email: "lina@buildlab.co", role: "Trainee", company: "BuildLab", lastSeen: "1 hour ago", status: "Active" },
-  { id: 4, initials: "HY", name: "Hadi Youssef", email: "hadi@damsys.io", role: "Owner", company: "Damascus Systems", lastSeen: "3 hours ago", status: "Active" },
-  { id: 5, initials: "RA", name: "Rama Ali", email: "rama@futurevision.co", role: "Trainee", company: "Future Vision", lastSeen: "2 days ago", status: "Suspended" },
-  { id: 6, initials: "MK", name: "Majd Karam", email: "majd@quantum.dev", role: "Manager", company: "Quantum Code", lastSeen: "4 days ago", status: "Invited" },
-];
-
 export const courses = [
   { id: 1, code: "RD", title: "React Development Mastery", category: "Development", creator: "TechCorp", learners: 1248, completion: 82, rating: "4.9", status: "Published" },
   { id: 2, code: "UX", title: "Product Design Foundations", category: "Design", creator: "Nexa Academy", learners: 816, completion: 74, rating: "4.8", status: "Published" },
