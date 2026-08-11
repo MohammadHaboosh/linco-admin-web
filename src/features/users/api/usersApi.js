@@ -12,7 +12,7 @@ export class UsersRequestError extends Error {
 }
 
 export const getUsersRequest = async (
-  { page = 1, take = 10, search = "" } = {},
+  { page = 1, role = "", take = 10, search = "", status = "" } = {},
   { signal } = {},
 ) => {
   const parameters = new URLSearchParams({
@@ -23,6 +23,14 @@ export const getUsersRequest = async (
 
   if (normalizedSearch) {
     parameters.set("search", normalizedSearch);
+  }
+
+  if (status) {
+    parameters.set("status", status);
+  }
+
+  if (role) {
+    parameters.set("role", role);
   }
 
   let response;

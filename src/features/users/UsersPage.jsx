@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import Icon from "../../components/icons/Icon";
 import commonStyles from "../../components/common/Common.module.css";
-import PageHeader, { ActionButton } from "../../components/common/PageHeader";
+import PageHeader from "../../components/common/PageHeader";
 import StatusBadge from "../../components/common/StatusBadge";
 import { Pagination, TableTools } from "../../components/common/TableTools";
 import styles from "../../styles/AdminPages.module.css";
@@ -78,11 +78,15 @@ const statusTone = (status) => {
 
 const UsersPage = () => {
   const [page, setPage] = useState(1);
+  const [role, setRole] = useState("");
   const [searchInput, setSearchInput] = useState("");
   const [search, setSearch] = useState("");
+  const [status, setStatus] = useState("");
   const { error, isLoading, meta, retry, users } = useUsers({
     page,
+    role,
     search,
+    status,
     take: PAGE_SIZE,
   });
   const {
@@ -133,16 +137,18 @@ const UsersPage = () => {
     }
   };
 
+  const handleFilterChange = (setter) => (event) => {
+    setPage(1);
+    setter(event.target.value);
+  };
+
   return (
     <div className={styles.page}>
       <PageHeader
         description="Search platform members, inspect their access, and manage account status."
         eyebrow="Identity and access"
         title="Users"
-      >
-        <ActionButton icon="download" variant="secondary">Export users</ActionButton>
-        <ActionButton icon="plus">Invite user</ActionButton>
-      </PageHeader>
+      />
 
       <div className={`${styles.summaryStrip} ${styles.summaryStripFour}`}>
         <div className={styles.summaryCard}><span className={styles.summaryIcon}><Icon name="users" size={20} /></span><div><strong>{summaryValue(stats.totalUsers)}</strong><span>Total users</span></div></div>
@@ -162,7 +168,32 @@ const UsersPage = () => {
         placeholder="Search users by name or email..."
         searchValue={searchInput}
         showFilters={false}
-      />
+      >
+        <label className={commonStyles.filterField}>
+          <span>Status</span>
+          <select
+            className={commonStyles.select}
+            onChange={handleFilterChange(setStatus)}
+            value={status}
+          >
+            <option value="">Show both statuses</option>
+            <option value="ACTIVE">Active</option>
+            <option value="SUSPENDED">Suspended</option>
+          </select>
+        </label>
+        <label className={commonStyles.filterField}>
+          <span>Role</span>
+          <select
+            className={commonStyles.select}
+            onChange={handleFilterChange(setRole)}
+            value={role}
+          >
+            <option value="">Show both roles</option>
+            <option value="USER">User</option>
+            <option value="ADMIN">Admin</option>
+          </select>
+        </label>
+      </TableTools>
       {feedback && (
         <div
           className={styles.actionFeedback}
@@ -175,13 +206,13 @@ const UsersPage = () => {
       )}
       <div className={commonStyles.tableWrap}>
         <table aria-busy={isLoading} className={commonStyles.table}>
-          <thead><tr><th>User</th><th>Role</th><th>Email verified</th><th>Two-factor</th><th>Joined</th><th>Last active</th><th>Status</th><th aria-label="Actions" /></tr></thead>
+          <thead><tr><th>User</th><th>Role</th><th>Email verified</th><th>Joined</th><th>Last active</th><th>Status</th><th aria-label="Actions" /></tr></thead>
           <tbody>
             {isLoading ? (
-              <tr><td className={styles.tableState} colSpan="8">Loading users...</td></tr>
+              <tr><td className={styles.tableState} colSpan="7">Loading users...</td></tr>
             ) : error ? (
               <tr>
-                <td className={styles.tableState} colSpan="8">
+                <td className={styles.tableState} colSpan="7">
                   <div role="alert">
                     <strong>Users could not be loaded</strong>
                     <span>{error}</span>
@@ -190,7 +221,7 @@ const UsersPage = () => {
                 </td>
               </tr>
             ) : users.length === 0 ? (
-              <tr><td className={styles.tableState} colSpan="8">No users found.</td></tr>
+              <tr><td className={styles.tableState} colSpan="7">No users found.</td></tr>
             ) : users.map((user) => {
               const fullName = getFullName(user);
 
@@ -206,12 +237,14 @@ const UsersPage = () => {
                   </td>
                   <td>{formatEnum(user.role)}</td>
                   <td><StatusBadge tone={user.isEmailVerified ? "success" : "warning"}>{user.isEmailVerified ? "Verified" : "Unverified"}</StatusBadge></td>
-                  <td><StatusBadge tone={user.isTwoFactorEnabled ? "success" : "neutral"}>{user.isTwoFactorEnabled ? "Enabled" : "Disabled"}</StatusBadge></td>
                   <td>{formatDate(user.createdAt)}</td>
                   <td>{formatDate(user.lastActiveAt, true)}</td>
                   <td><StatusBadge tone={statusTone(user.status)}>{formatEnum(user.status)}</StatusBadge></td>
                   <td>
-                    {(["ACTIVE", "SUSPENDED"].includes(user.status?.toUpperCase())) ? (
+                    {(
+                      user.role?.toUpperCase() !== "ADMIN"
+                      && ["ACTIVE", "SUSPENDED"].includes(user.status?.toUpperCase())
+                    ) ? (
                       <button
                         className={styles.accountActionButton}
                         data-action={user.status.toUpperCase() === "ACTIVE" ? "suspend" : "activate"}

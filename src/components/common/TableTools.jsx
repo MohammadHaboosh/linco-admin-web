@@ -2,6 +2,7 @@ import Icon from "../icons/Icon";
 import styles from "./Common.module.css";
 
 export const TableTools = ({
+  children,
   onSearchChange,
   placeholder,
   searchValue,
@@ -20,7 +21,9 @@ export const TableTools = ({
         value={searchValue}
       />
     </label>
-    {showFilters && (
+    {children ? (
+      <div className={styles.toolbarGroup}>{children}</div>
+    ) : showFilters && (
       <div className={styles.toolbarGroup}>
         <select aria-label="Filter by status" className={styles.select} defaultValue="all">
           <option value="all">{statusLabel}</option>

@@ -10,7 +10,7 @@ const EMPTY_META = {
   hasNextPage: false,
 };
 
-const useUsers = ({ page, take, search }) => {
+const useUsers = ({ page, role, take, search, status }) => {
   const [requestVersion, setRequestVersion] = useState(0);
   const [state, setState] = useState({
     users: [],
@@ -18,7 +18,7 @@ const useUsers = ({ page, take, search }) => {
     error: "",
     requestKey: "",
   });
-  const requestKey = `${page}:${take}:${search}:${requestVersion}`;
+  const requestKey = `${page}:${take}:${search}:${status}:${role}:${requestVersion}`;
   const isLoading = state.requestKey !== requestKey;
 
   const retry = useCallback(() => {
@@ -28,7 +28,7 @@ const useUsers = ({ page, take, search }) => {
   useEffect(() => {
     const controller = new AbortController();
 
-    getUsersRequest({ page, take, search }, { signal: controller.signal })
+    getUsersRequest({ page, role, take, search, status }, { signal: controller.signal })
       .then(({ users, meta }) => {
         setState({
           users,
@@ -53,7 +53,7 @@ const useUsers = ({ page, take, search }) => {
       });
 
     return () => controller.abort();
-  }, [page, requestKey, search, take]);
+  }, [page, requestKey, role, search, status, take]);
 
   return {
     ...state,

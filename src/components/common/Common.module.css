@@ -317,6 +317,20 @@
   padding: 0 32px 0 12px;
 }
 
+.filterField {
+  min-width: 150px;
+  display: grid;
+  gap: 4px;
+}
+
+.filterField > span {
+  color: var(--linco-text-muted);
+  font-size: 0.62rem;
+  font-weight: 800;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
 .tableWrap {
   overflow-x: auto;
   border: 1px solid var(--linco-border);
@@ -491,6 +505,7 @@
 
   .searchField,
   .toolbarGroup,
+  .filterField,
   .select {
     width: 100%;
   }
