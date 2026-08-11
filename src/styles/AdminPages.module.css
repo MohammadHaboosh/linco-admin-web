@@ -405,18 +405,18 @@
   color: var(--linco-blue-600);
 }
 
-.summaryCard strong,
-.summaryCard span {
+.summaryCard > div > strong,
+.summaryCard > div > span {
   display: block;
 }
 
-.summaryCard strong {
+.summaryCard > div > strong {
   color: var(--linco-navy-900);
   font-size: 1.1rem;
   font-weight: 800;
 }
 
-.summaryCard span {
+.summaryCard > div > span {
   margin-top: 1px;
   color: var(--linco-text-muted);
   font-size: 0.69rem;
