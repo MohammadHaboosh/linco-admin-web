@@ -1,5 +1,6 @@
 import { useState } from "react";
 import AdminLayout from "../layouts/AdminLayout/AdminLayout";
+import SessionLoadingPage from "../features/authentication/SessionLoadingPage";
 import SignInPage from "../features/authentication/SignInPage";
 import useAuthSession from "../features/authentication/hooks/useAuthSession";
 import AuditLogPage from "../features/audit/AuditLogPage";
@@ -22,7 +23,12 @@ const pages = {
 
 const App = () => {
   const [activePage, setActivePage] = useState("overview");
-  const { isAuthenticated, signOut, user } = useAuthSession();
+  const {
+    isAuthenticated,
+    isInitializing,
+    signOut,
+    user,
+  } = useAuthSession();
   const ActivePage = pages[activePage] || DashboardPage;
 
   const navigate = (page) => {
@@ -34,6 +40,10 @@ const App = () => {
     setActivePage("overview");
     signOut();
   };
+
+  if (isInitializing) {
+    return <SessionLoadingPage />;
+  }
 
   if (!isAuthenticated) {
     return <SignInPage />;

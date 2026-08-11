@@ -1,6 +1,7 @@
 import { apiFetch } from "../../../api/apiFetch";
 
 const SIGN_IN_PATH = "authentication/sign-in";
+const CURRENT_USER_PATH = "/users/me";
 
 const readResponseBody = async (response) => {
   const responseText = await response.text();
@@ -70,4 +71,42 @@ export const signInRequest = async ({ email, password }, { signal } = {}) => {
   }
 
   return authData;
+};
+
+export const getCurrentUserRequest = async ({ signal } = {}) => {
+  let response;
+
+  try {
+    response = await apiFetch(CURRENT_USER_PATH, {
+      method: "GET",
+      cache: "no-store",
+      signal,
+    });
+  } catch (error) {
+    if (error.name === "AbortError") {
+      throw error;
+    }
+
+    throw new AuthenticationError(
+      "We could not verify your session. Check your connection and try again.",
+    );
+  }
+
+  const payload = await readResponseBody(response);
+
+  if (!response.ok || payload?.success === false) {
+    throw new AuthenticationError(
+      payload?.message || "Your session could not be verified.",
+      response.status,
+    );
+  }
+
+  if (!payload?.data?.user || typeof payload.data.user !== "object") {
+    throw new AuthenticationError(
+      "The current session response did not include a user.",
+      response.status,
+    );
+  }
+
+  return payload.data.user;
 };

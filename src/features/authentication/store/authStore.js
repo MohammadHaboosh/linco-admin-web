@@ -1,6 +1,8 @@
 import { AUTH_SESSION_EXPIRED_EVENT } from "../../../api/apiFetch";
 
-let currentSession = null;
+// `undefined` means the cookie-backed session has not been checked yet.
+// `null` means the check completed and there is no authenticated session.
+let currentSession;
 const listeners = new Set();
 
 const emitChange = () => {
@@ -9,7 +11,7 @@ const emitChange = () => {
 
 export const getAuthSnapshot = () => currentSession;
 
-export const getServerAuthSnapshot = () => null;
+export const getServerAuthSnapshot = () => undefined;
 
 export const subscribeToAuthStore = (listener) => {
   listeners.add(listener);

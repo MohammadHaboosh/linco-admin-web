@@ -5,6 +5,49 @@
   background: var(--linco-surface);
 }
 
+.sessionLoadingPage {
+  min-height: 100vh;
+  display: grid;
+  place-items: center;
+  padding: 24px;
+  background:
+    radial-gradient(circle at 50% 35%, rgba(71, 191, 255, 0.13), transparent 28%),
+    var(--linco-sidebar-gradient);
+}
+
+.sessionLoadingCard {
+  display: grid;
+  justify-items: center;
+  gap: 18px;
+  color: rgba(255, 255, 255, 0.68);
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+}
+
+.sessionLoadingCard p {
+  margin: 0;
+}
+
+.sessionLoadingLogo {
+  width: 58px;
+  height: 58px;
+  border: 2px solid rgba(71, 191, 255, 0.8);
+  border-radius: 17px;
+  background: #fff;
+  box-shadow: 0 12px 28px rgba(2, 12, 27, 0.22);
+  object-fit: cover;
+}
+
+.sessionLoadingSpinner {
+  width: 22px;
+  height: 22px;
+  border: 2px solid rgba(255, 255, 255, 0.22);
+  border-top-color: var(--linco-sky-400);
+  border-radius: 50%;
+  animation: spin 700ms linear infinite;
+}
+
 .brandPanel {
   position: relative;
   min-height: 100vh;
