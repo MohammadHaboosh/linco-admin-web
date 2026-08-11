@@ -2,7 +2,6 @@ import { useState } from "react";
 import Icon from "../../components/icons/Icon";
 import { navigationSections, pageTitles } from "../../config/navigation";
 import {
-  formatUserRole,
   getUserDisplayName,
   getUserInitials,
 } from "../../features/authentication/utils/authUser";
@@ -76,36 +75,11 @@ const Sidebar = ({ activePage, isOpen, onClose, onNavigate, onSignOut }) => (
   </>
 );
 
-const NotificationMenu = () => (
-  <div className={styles.notificationMenu}>
-    <div className={styles.notificationHeader}>
-      <div>
-        <strong>Notifications</strong>
-        <span>3 items need attention</span>
-      </div>
-      <button type="button">Mark all read</button>
-    </div>
-    <div className={styles.notificationItem}>
-      <span className={styles.notificationIcon} data-tone="warning"><Icon name="alert" size={17} /></span>
-      <div><strong>12 companies await approval</strong><span>Review company verification requests.</span><small>8 min ago</small></div>
-    </div>
-    <div className={styles.notificationItem}>
-      <span className={styles.notificationIcon} data-tone="success"><Icon name="check" size={17} /></span>
-      <div><strong>Weekly report is ready</strong><span>Platform health report was generated.</span><small>1 hour ago</small></div>
-    </div>
-    <div className={styles.notificationItem}>
-      <span className={styles.notificationIcon}><Icon name="users" size={17} /></span>
-      <div><strong>New user milestone</strong><span>8,000 active learners reached.</span><small>Yesterday</small></div>
-    </div>
-  </div>
-);
-
 const AdminLayout = ({ activePage, children, onNavigate, onSignOut, user }) => {
   const [sidebarOpen, setSidebarOpen] = useState(false);
-  const [notificationsOpen, setNotificationsOpen] = useState(false);
   const userDisplayName = getUserDisplayName(user);
   const userInitials = getUserInitials(user);
-  const userRole = formatUserRole(user?.role);
+  const showSearch = activePage === "users" || activePage === "companies";
 
   return (
     <div className={styles.appShell}>
@@ -135,28 +109,16 @@ const AdminLayout = ({ activePage, children, onNavigate, onSignOut, user }) => {
             </div>
           </div>
 
-          <label className={styles.globalSearch}>
-            <Icon name="search" size={18} />
-            <input aria-label="Search the platform" placeholder="Search companies, users or courses..." type="search" />
-            <span>⌘ K</span>
-          </label>
+          {showSearch && (
+            <label className={styles.globalSearch}>
+              <Icon name="search" size={18} />
+              <input aria-label="Search the platform" placeholder="Search companies, users or courses..." type="search" />
+              <span>⌘ K</span>
+            </label>
+          )}
 
           <div className={styles.topbarActions}>
-            <span className={styles.systemStatus}><i />System healthy</span>
-            <div className={styles.notificationWrap}>
-              <button
-                aria-expanded={notificationsOpen}
-                aria-label="Notifications"
-                className={styles.topbarIconButton}
-                onClick={() => setNotificationsOpen((current) => !current)}
-                type="button"
-              >
-                <Icon name="bell" size={20} />
-                <span className={styles.notificationDot}>3</span>
-              </button>
-              {notificationsOpen && <NotificationMenu />}
-            </div>
-            <button className={styles.profileButton} type="button">
+            <div className={styles.profile}>
               <span className={styles.profileAvatar}>
                 {user?.imagePath ? (
                   <img alt="" src={user.imagePath} />
@@ -164,10 +126,8 @@ const AdminLayout = ({ activePage, children, onNavigate, onSignOut, user }) => {
               </span>
               <span className={styles.profileCopy}>
                 <strong>{userDisplayName}</strong>
-                <small>{userRole}</small>
               </span>
-              <Icon name="chevronDown" size={15} />
-            </button>
+            </div>
           </div>
         </header>
 

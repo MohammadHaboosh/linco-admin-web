@@ -6,6 +6,8 @@ import {
 import { setAuthSession } from "../store/authStore";
 import { validateSignIn } from "../utils/authValidation";
 
+const USER_APP_URL = "https://lincolms.me";
+
 const useSignIn = () => {
   const [fieldErrors, setFieldErrors] = useState({});
   const [formError, setFormError] = useState("");
@@ -48,6 +50,11 @@ const useSignIn = () => {
           "Two-factor verification is required for this account. The verification step still needs to be connected.",
         );
         return false;
+      }
+
+      if (authData.user.role?.trim().toLowerCase() === "user") {
+        window.location.assign(USER_APP_URL);
+        return true;
       }
 
       setAuthSession(authData);
