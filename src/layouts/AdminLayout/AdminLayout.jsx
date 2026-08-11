@@ -1,9 +1,14 @@
 import { useState } from "react";
 import Icon from "../../components/icons/Icon";
 import { navigationSections, pageTitles } from "../../config/navigation";
+import {
+  formatUserRole,
+  getUserDisplayName,
+  getUserInitials,
+} from "../../features/authentication/utils/authUser";
 import styles from "./AdminLayout.module.css";
 
-const Sidebar = ({ activePage, isOpen, onClose, onNavigate }) => (
+const Sidebar = ({ activePage, isOpen, onClose, onNavigate, onSignOut }) => (
   <>
     <button
       aria-label="Close navigation"
@@ -62,7 +67,7 @@ const Sidebar = ({ activePage, isOpen, onClose, onNavigate }) => (
           <span>Our technical team is one message away.</span>
           <button type="button">Open support</button>
         </div>
-        <button className={styles.signOut} type="button">
+        <button className={styles.signOut} onClick={onSignOut} type="button">
           <Icon name="logout" size={18} />
           Sign out
         </button>
@@ -95,9 +100,12 @@ const NotificationMenu = () => (
   </div>
 );
 
-const AdminLayout = ({ activePage, children, onNavigate }) => {
+const AdminLayout = ({ activePage, children, onNavigate, onSignOut, user }) => {
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const [notificationsOpen, setNotificationsOpen] = useState(false);
+  const userDisplayName = getUserDisplayName(user);
+  const userInitials = getUserInitials(user);
+  const userRole = formatUserRole(user?.role);
 
   return (
     <div className={styles.appShell}>
@@ -106,6 +114,7 @@ const AdminLayout = ({ activePage, children, onNavigate }) => {
         isOpen={sidebarOpen}
         onClose={() => setSidebarOpen(false)}
         onNavigate={onNavigate}
+        onSignOut={onSignOut}
       />
 
       <div className={styles.mainColumn}>
@@ -148,10 +157,14 @@ const AdminLayout = ({ activePage, children, onNavigate }) => {
               {notificationsOpen && <NotificationMenu />}
             </div>
             <button className={styles.profileButton} type="button">
-              <span className={styles.profileAvatar}>OK</span>
+              <span className={styles.profileAvatar}>
+                {user?.imagePath ? (
+                  <img alt="" src={user.imagePath} />
+                ) : userInitials}
+              </span>
               <span className={styles.profileCopy}>
-                <strong>Omar Khalil</strong>
-                <small>Platform admin</small>
+                <strong>{userDisplayName}</strong>
+                <small>{userRole}</small>
               </span>
               <Icon name="chevronDown" size={15} />
             </button>

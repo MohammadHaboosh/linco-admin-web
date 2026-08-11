@@ -34,3 +34,17 @@ npm run dev
 npm run lint
 npm run build
 ```
+
+## API configuration
+
+Copy `.env.example` to `.env.local` and set `VITE_API_BASE_URL` when the API is
+hosted on a different origin. When the variable is empty, API requests use the
+current origin. Authentication posts `email` and `password` to
+`authentication/sign-in`.
+
+All application API requests should use `src/api/apiFetch.js`. The wrapper sends
+cookies with `credentials: include`, adds the `x-client-type: web`,
+`Accept: application/json`, and `Content-Type: application/json` headers, and
+retries a request once after refreshing an expired session through
+`authentication/refresh-tokens`. Authentication tokens are not stored in browser
+storage.

@@ -1,5 +1,7 @@
 import { useState } from "react";
 import AdminLayout from "../layouts/AdminLayout/AdminLayout";
+import SignInPage from "../features/authentication/SignInPage";
+import useAuthSession from "../features/authentication/hooks/useAuthSession";
 import AuditLogPage from "../features/audit/AuditLogPage";
 import CompaniesPage from "../features/companies/CompaniesPage";
 import CoursesPage from "../features/courses/CoursesPage";
@@ -20,6 +22,7 @@ const pages = {
 
 const App = () => {
   const [activePage, setActivePage] = useState("overview");
+  const { isAuthenticated, signOut, user } = useAuthSession();
   const ActivePage = pages[activePage] || DashboardPage;
 
   const navigate = (page) => {
@@ -27,8 +30,22 @@ const App = () => {
     window.scrollTo({ top: 0, behavior: "smooth" });
   };
 
+  const handleSignOut = () => {
+    setActivePage("overview");
+    signOut();
+  };
+
+  if (!isAuthenticated) {
+    return <SignInPage />;
+  }
+
   return (
-    <AdminLayout activePage={activePage} onNavigate={navigate}>
+    <AdminLayout
+      activePage={activePage}
+      onNavigate={navigate}
+      onSignOut={handleSignOut}
+      user={user}
+    >
       <ActivePage />
     </AdminLayout>
   );
