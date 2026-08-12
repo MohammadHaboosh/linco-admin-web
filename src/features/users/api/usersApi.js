@@ -138,7 +138,7 @@ export const getUserStatsRequest = async ({ signal } = {}) => {
   return payload.data;
 };
 
-const updateUserStatusRequest = async (path, method) => {
+const updateUserRequest = async (path, method) => {
   let response;
 
   try {
@@ -155,14 +155,14 @@ const updateUserStatusRequest = async (path, method) => {
     payload = await response.json();
   } catch {
     throw new UsersRequestError(
-      "The account update response could not be read. Please try again.",
+      "The user update response could not be read. Please try again.",
       response.status,
     );
   }
 
   if (!response.ok || payload?.success !== true) {
     throw new UsersRequestError(
-      payload?.message || "The user account could not be updated. Please try again.",
+      payload?.message || "The user could not be updated. Please try again.",
       response.status,
     );
   }
@@ -171,9 +171,13 @@ const updateUserStatusRequest = async (path, method) => {
 };
 
 export const suspendUserRequest = (userId) => (
-  updateUserStatusRequest(`${USERS_PATH}/${encodeURIComponent(userId)}`, "DELETE")
+  updateUserRequest(`${USERS_PATH}/${encodeURIComponent(userId)}`, "DELETE")
 );
 
 export const activateUserRequest = (userId) => (
-  updateUserStatusRequest(`${USERS_PATH}/${encodeURIComponent(userId)}/activate`, "PATCH")
+  updateUserRequest(`${USERS_PATH}/${encodeURIComponent(userId)}/activate`, "PATCH")
+);
+
+export const promoteUserToAdminRequest = (userId) => (
+  updateUserRequest(`${USERS_PATH}/${encodeURIComponent(userId)}`, "PATCH")
 );

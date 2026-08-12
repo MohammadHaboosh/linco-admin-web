@@ -5,7 +5,8 @@ import PageHeader from "../../components/common/PageHeader";
 import StatusBadge from "../../components/common/StatusBadge";
 import { Pagination, TableTools } from "../../components/common/TableTools";
 import styles from "../../styles/AdminPages.module.css";
-import useUserAccountAction from "./hooks/useUserAccountAction";
+import UserRowActions from "./components/UserRowActions";
+import useUserActions from "./hooks/useUserActions";
 import useUserStats from "./hooks/useUserStats";
 import useUsers from "./hooks/useUsers";
 
@@ -95,7 +96,7 @@ const UsersPage = () => {
     retry: retryStats,
     stats,
   } = useUserStats();
-  const { feedback, updateAccount, updatingUserId } = useUserAccountAction();
+  const { feedback, pendingAction, updateUser } = useUserActions();
 
   useEffect(() => {
     const timeout = window.setTimeout(() => {
@@ -125,7 +126,7 @@ const UsersPage = () => {
       return;
     }
 
-    const wasUpdated = await updateAccount({
+    const wasUpdated = await updateUser({
       action,
       name: fullName,
       userId: user.id,
@@ -134,6 +135,28 @@ const UsersPage = () => {
     if (wasUpdated) {
       retry();
       retryStats();
+    }
+  };
+
+  const handlePromoteToAdmin = async (user) => {
+    const fullName = getFullName(user);
+
+    if (
+      !window.confirm(
+        `Make ${fullName} an administrator? They will receive full administrative access.`,
+      )
+    ) {
+      return;
+    }
+
+    const wasUpdated = await updateUser({
+      action: "promote",
+      name: fullName,
+      userId: user.id,
+    });
+
+    if (wasUpdated) {
+      retry();
     }
   };
 
@@ -241,22 +264,13 @@ const UsersPage = () => {
                   <td>{formatDate(user.lastActiveAt, true)}</td>
                   <td><StatusBadge tone={statusTone(user.status)}>{formatEnum(user.status)}</StatusBadge></td>
                   <td>
-                    {(
-                      user.role?.toUpperCase() !== "ADMIN"
-                      && ["ACTIVE", "SUSPENDED"].includes(user.status?.toUpperCase())
-                    ) ? (
-                      <button
-                        className={styles.accountActionButton}
-                        data-action={user.status.toUpperCase() === "ACTIVE" ? "suspend" : "activate"}
-                        disabled={Boolean(updatingUserId)}
-                        onClick={() => handleAccountAction(user)}
-                        type="button"
-                      >
-                        {updatingUserId === user.id
-                          ? user.status.toUpperCase() === "ACTIVE" ? "Suspending..." : "Reactivating..."
-                          : user.status.toUpperCase() === "ACTIVE" ? "Suspend" : "Reactivate"}
-                      </button>
-                    ) : "—"}
+                    <UserRowActions
+                      fullName={fullName}
+                      onAccountAction={handleAccountAction}
+                      onPromoteToAdmin={handlePromoteToAdmin}
+                      pendingAction={pendingAction}
+                      user={user}
+                    />
                   </td>
                 </tr>
               );

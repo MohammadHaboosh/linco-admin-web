@@ -498,29 +498,46 @@
   color: #b91c1c;
 }
 
-.accountActionButton {
+.userActions {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+}
+
+.userActionButton {
   min-width: 82px;
   height: 32px;
   padding: 0 11px;
   border: 1px solid transparent;
   border-radius: 8px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
   font-size: 0.68rem;
   font-weight: 750;
+  white-space: nowrap;
 }
 
-.accountActionButton[data-action="suspend"] {
+.userActionButton[data-action="promote"] {
+  border-color: #bfdbfe;
+  background: var(--linco-blue-50);
+  color: var(--linco-blue-600);
+}
+
+.userActionButton[data-action="suspend"] {
   border-color: #fecaca;
   background: var(--linco-danger-soft);
   color: #dc2626;
 }
 
-.accountActionButton[data-action="activate"] {
+.userActionButton[data-action="activate"] {
   border-color: #a7f3d0;
   background: var(--linco-success-soft);
   color: #059669;
 }
 
-.accountActionButton:disabled {
+.userActionButton:disabled {
   cursor: wait;
   opacity: 0.55;
 }
