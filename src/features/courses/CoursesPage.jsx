@@ -9,8 +9,9 @@ import styles from "./Courses.module.css";
 import useCourses from "./hooks/useCourses";
 import useCourseStats from "./hooks/useCourseStats";
 import CourseDashboardCard from "./components/CourseDashboardCard";
+import TagManagementModal from "./components/TagManagementModal";
 
-const PAGE_SIZE = 12; // يفضل مضاعفات الـ 4 ليتناسب مع الشبكة (Grid)
+const PAGE_SIZE = 12;
 
 const CoursesPage = () => {
   const [page, setPage] = useState(1);
@@ -43,6 +44,8 @@ const CoursesPage = () => {
   const summaryValue = (value) =>
     statsLoading || statsError ? "—" : value.toLocaleString();
 
+  const [isTagModalOpen, setIsTagModalOpen] = useState(false);
+
   return (
     <div className={adminStyles.page}>
       <PageHeader
@@ -50,13 +53,18 @@ const CoursesPage = () => {
         eyebrow="Learning administration"
         title="Course Library"
       >
+        <ActionButton
+          icon="external"
+          variant="secondary"
+          onClick={() => setIsTagModalOpen(true)}
+        >
+          Manage Tags
+        </ActionButton>
         <ActionButton icon="download" variant="secondary">
           Export catalog
         </ActionButton>
-        <ActionButton icon="plus">Create course</ActionButton>
       </PageHeader>
 
-      {/* منطقة الإحصائيات (6 كروت) */}
       <div className={styles.statsGrid}>
         <div className={adminStyles.summaryCard}>
           <span className={adminStyles.summaryIcon}>
@@ -123,7 +131,6 @@ const CoursesPage = () => {
         </div>
       )}
 
-      {/* شريط البحث والفلاتر */}
       <TableTools
         placeholder="Search title or description..."
         searchValue={searchInput}
@@ -147,7 +154,6 @@ const CoursesPage = () => {
         </label>
       </TableTools>
 
-      {/* عرض الكورسات كـ Cards */}
       <div className={styles.coursesGrid}>
         {isLoading ? (
           <div className={styles.stateBox}>Loading courses...</div>
@@ -169,7 +175,6 @@ const CoursesPage = () => {
         )}
       </div>
 
-      {/* الترقيم (Pagination) */}
       {!isLoading && !error && courses.length > 0 && (
         <Pagination
           hasNextPage={meta.hasNextPage}
@@ -180,6 +185,11 @@ const CoursesPage = () => {
           pageCount={meta.pageCount}
         />
       )}
+
+      <TagManagementModal
+        isOpen={isTagModalOpen}
+        onClose={() => setIsTagModalOpen(false)}
+      />
     </div>
   );
 };
