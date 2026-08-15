@@ -1,10 +1,5 @@
 import { useState } from "react";
-import {
-  IoPricetagOutline,
-  IoCloseOutline,
-  IoAddOutline,
-  IoTrashOutline,
-} from "react-icons/io5";
+import Icon from "../../../components/icons/Icon";
 import styles from "../Courses.module.css";
 import { useTagsManager } from "../hooks/useTagsManager";
 
@@ -36,7 +31,7 @@ const TagManagementModal = ({ isOpen, onClose }) => {
         <div className={styles.tagModalHeader}>
           <div className={styles.headerTitleArea}>
             <div className={styles.iconBoxPrimary}>
-              <IoPricetagOutline />
+              <Icon name="tag" size={24} />
             </div>
             <div>
               <h3>Manage Platform Tags</h3>
@@ -48,7 +43,7 @@ const TagManagementModal = ({ isOpen, onClose }) => {
             onClick={onClose}
             disabled={isSubmitting}
           >
-            <IoCloseOutline />
+            <Icon name="close" size={20} />
           </button>
         </div>
 
@@ -58,7 +53,9 @@ const TagManagementModal = ({ isOpen, onClose }) => {
           {/* Form to Add Tag */}
           <form className={styles.addTagForm} onSubmit={handleAdd}>
             <div className={styles.inputWrapper}>
-              <IoPricetagOutline className={styles.inputIcon} />
+              <div className={styles.inputIcon}>
+                <Icon name="tag" size={18} />
+              </div>
               <input
                 type="text"
                 placeholder="Enter new tag name (e.g. React, UI/UX)..."
@@ -73,7 +70,7 @@ const TagManagementModal = ({ isOpen, onClose }) => {
               className={styles.addTagBtn}
               disabled={isSubmitting || !newTagName.trim()}
             >
-              <IoAddOutline size={18} />{" "}
+              <Icon name="plus" size={18} />
               {isSubmitting ? "Adding..." : "Add Tag"}
             </button>
           </form>
@@ -99,7 +96,7 @@ const TagManagementModal = ({ isOpen, onClose }) => {
                       disabled={isSubmitting}
                       title={`Delete ${tag.name}`}
                     >
-                      <IoTrashOutline />
+                      <Icon name="trash" size={16} />
                     </button>
                   </div>
                 ))}
