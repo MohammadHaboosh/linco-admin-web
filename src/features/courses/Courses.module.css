@@ -61,7 +61,7 @@
   position: absolute;
   top: 12px;
   right: 12px;
-  background: rgba(255, 255, 255, 0.9);
+  background: var(--linco-image-badge);
   backdrop-filter: blur(4px);
   color: var(--linco-navy-900);
   padding: 4px 10px;
@@ -194,11 +194,19 @@
   font-weight: 600;
   grid-column: 1 / -1;
 }
+
+.pageError {
+  display: block;
+  margin-bottom: 10px;
+  color: var(--linco-danger-strong);
+  font-size: 0.78rem;
+  font-weight: 650;
+}
 /* ================= Tag Management Modal ================= */
 .modalOverlay {
   position: fixed;
   inset: 0;
-  background: rgba(7, 26, 53, 0.6);
+  background: var(--linco-modal-overlay);
   backdrop-filter: blur(5px);
   display: flex;
   align-items: center;
@@ -218,7 +226,8 @@
 }
 
 .tagModalContent {
-  background: #ffffff;
+  border: 1px solid var(--linco-border);
+  background: var(--linco-surface);
   width: 100%;
   max-width: 600px;
   border-radius: 20px;
@@ -243,8 +252,8 @@
   justify-content: space-between;
   align-items: center;
   padding: 24px 30px;
-  border-bottom: 1px solid #e2e8f0;
-  background: #f8fafc;
+  border-bottom: 1px solid var(--linco-border);
+  background: var(--linco-surface-soft);
 }
 
 .headerTitleArea {
@@ -256,8 +265,8 @@
 .iconBoxPrimary {
   width: 48px;
   height: 48px;
-  background: linear-gradient(135deg, #1a56db 0%, #1e3a8a 100%);
-  color: #ffffff;
+  background: var(--linco-gradient);
+  color: var(--linco-on-accent);
   border-radius: 14px;
   display: flex;
   justify-content: center;
@@ -268,21 +277,21 @@
 
 .headerTitleArea h3 {
   margin: 0 0 4px 0;
-  color: #0f172a;
+  color: var(--linco-navy-900);
   font-size: 1.2rem;
   font-weight: 800;
 }
 
 .headerTitleArea p {
   margin: 0;
-  color: #64748b;
+  color: var(--linco-text-muted);
   font-size: 0.85rem;
 }
 
 .closeBtn {
-  background: #ffffff;
-  border: 1px solid #cbd5e1;
-  color: #475569;
+  background: var(--linco-surface);
+  border: 1px solid var(--linco-border-strong);
+  color: var(--linco-text-muted);
   width: 36px;
   height: 36px;
   border-radius: 10px;
@@ -295,9 +304,9 @@
 }
 
 .closeBtn:hover {
-  background: #fef2f2;
-  color: #ef4444;
-  border-color: #fca5a5;
+  background: var(--linco-danger-soft);
+  color: var(--linco-danger);
+  border-color: var(--linco-danger-border);
 }
 
 .tagModalBody {
@@ -308,11 +317,11 @@
 }
 
 .errorMessage {
-  background: #fef2f2;
-  color: #b91c1c;
+  background: var(--linco-danger-soft);
+  color: var(--linco-danger-strong);
   padding: 12px 16px;
   border-radius: 10px;
-  border: 1px solid #fecaca;
+  border: 1px solid var(--linco-danger-border);
   font-size: 0.85rem;
   font-weight: 600;
 }
@@ -333,32 +342,32 @@
   left: 16px;
   top: 50%;
   transform: translateY(-50%);
-  color: #94a3b8;
+  color: var(--linco-text-soft);
   font-size: 1.1rem;
 }
 
 .inputWrapper input {
   width: 100%;
   padding: 14px 16px 14px 44px;
-  border: 2px solid #e2e8f0;
+  border: 2px solid var(--linco-border);
   border-radius: 12px;
-  background: #f8fafc;
+  background: var(--linco-surface-soft);
   font-size: 0.95rem;
-  color: #1e293b;
+  color: var(--linco-text);
   outline: none;
   transition: all 0.2s;
   box-sizing: border-box;
 }
 
 .inputWrapper input:focus {
-  border-color: #1a56db;
-  background: #ffffff;
+  border-color: var(--linco-blue-500);
+  background: var(--linco-surface);
   box-shadow: 0 0 0 4px rgba(26, 86, 219, 0.1);
 }
 
 .addTagBtn {
-  background: #0f172a;
-  color: #ffffff;
+  background: var(--linco-gradient);
+  color: var(--linco-on-accent);
   border: none;
   padding: 0 24px;
   border-radius: 12px;
@@ -372,7 +381,7 @@
 }
 
 .addTagBtn:hover:not(:disabled) {
-  background: #1a56db;
+  background: var(--linco-blue-600);
   transform: translateY(-2px);
   box-shadow: 0 6px 15px rgba(26, 86, 219, 0.2);
 }
@@ -392,7 +401,7 @@
 .tagsAreaLabel {
   font-size: 0.85rem;
   font-weight: 800;
-  color: #475569;
+  color: var(--linco-text-muted);
   text-transform: uppercase;
   letter-spacing: 0.05em;
 }
@@ -410,28 +419,28 @@
   display: flex;
   align-items: center;
   gap: 8px;
-  background: #f1f5f9;
-  border: 1px solid #e2e8f0;
+  background: var(--linco-neutral-soft);
+  border: 1px solid var(--linco-border);
   padding: 6px 6px 6px 14px;
   border-radius: 20px;
   transition: all 0.2s;
 }
 
 .tagItem:hover {
-  background: #ffffff;
-  border-color: #cbd5e1;
+  background: var(--linco-surface);
+  border-color: var(--linco-border-strong);
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.04);
 }
 
 .tagName {
   font-size: 0.85rem;
   font-weight: 700;
-  color: #334155;
+  color: var(--linco-text);
 }
 
 .deleteTagBtn {
   background: transparent;
-  color: #94a3b8;
+  color: var(--linco-text-soft);
   border: none;
   width: 24px;
   height: 24px;
@@ -444,17 +453,17 @@
 }
 
 .deleteTagBtn:hover {
-  background: #fee2e2;
-  color: #ef4444;
+  background: var(--linco-danger-soft);
+  color: var(--linco-danger);
 }
 
 .loadingState,
 .emptyState {
   text-align: center;
   padding: 30px;
-  color: #64748b;
+  color: var(--linco-text-muted);
   font-weight: 600;
-  background: #f8fafc;
+  background: var(--linco-surface-soft);
   border-radius: 12px;
-  border: 1px dashed #cbd5e1;
+  border: 1px dashed var(--linco-border-strong);
 }

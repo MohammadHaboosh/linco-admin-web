@@ -75,7 +75,7 @@ const Sidebar = ({ activePage, isOpen, onClose, onNavigate, onSignOut }) => (
   </>
 );
 
-const AdminLayout = ({ activePage, children, onNavigate, onSignOut, user }) => {
+const AdminLayout = ({ activePage, children, onNavigate, onSignOut, onToggleTheme, theme, user }) => {
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const userDisplayName = getUserDisplayName(user);
   const userInitials = getUserInitials(user);
@@ -109,6 +109,15 @@ const AdminLayout = ({ activePage, children, onNavigate, onSignOut, user }) => {
           </div>
 
           <div className={styles.topbarActions}>
+            <button
+              aria-label={`Switch to ${theme === "dark" ? "light" : "dark"} theme`}
+              className={styles.themeToggle}
+              onClick={onToggleTheme}
+              title={`Use ${theme === "dark" ? "light" : "dark"} theme`}
+              type="button"
+            >
+              <Icon name={theme === "dark" ? "sun" : "moon"} size={18} />
+            </button>
             <div className={styles.profile}>
               <span className={styles.profileAvatar}>
                 {user?.imagePath ? (

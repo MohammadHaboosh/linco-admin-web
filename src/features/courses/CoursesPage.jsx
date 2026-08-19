@@ -159,7 +159,7 @@ const CoursesPage = () => {
           <div className={styles.stateBox}>Loading courses...</div>
         ) : error ? (
           <div className={styles.stateBox}>
-            <span style={{ color: "red", marginBottom: "10px" }}>{error}</span>
+            <span className={styles.pageError}>{error}</span>
             <button className={commonStyles.buttonSecondary} onClick={retry}>
               Retry
             </button>

@@ -159,7 +159,7 @@
 }
 
 .periodTabs .periodActive {
-  background: #fff;
+  background: var(--linco-surface);
   color: var(--linco-navy-900);
   box-shadow: 0 2px 6px rgba(10, 42, 84, 0.08);
 }
@@ -213,7 +213,7 @@
   display: grid;
   place-items: center;
   border-radius: 50%;
-  background: conic-gradient(var(--linco-blue-600) 0 58%, var(--linco-sky-400) 58% 78%, #7c3aed 78% 91%, #dbeafe 91% 100%);
+  background: conic-gradient(var(--linco-blue-600) 0 58%, var(--linco-sky-400) 58% 78%, var(--linco-violet) 78% 91%, var(--linco-blue-100) 91% 100%);
 }
 
 .donut::before {
@@ -221,7 +221,7 @@
   width: 105px;
   aspect-ratio: 1;
   border-radius: 50%;
-  background: #fff;
+  background: var(--linco-surface);
   box-shadow: inset 0 0 0 1px var(--linco-border);
   content: "";
 }
@@ -282,7 +282,7 @@
 
 .compactTable td {
   padding: 12px 0;
-  border-bottom: 1px solid #eef2f7;
+  border-bottom: 1px solid var(--linco-row-border);
   color: var(--linco-text-muted);
   font-size: 0.71rem;
 }
@@ -347,7 +347,7 @@
 }
 
 .activityIcon[data-tone="green"] { background: var(--linco-success-soft); color: var(--linco-success); }
-.activityIcon[data-tone="violet"] { background: #f5f3ff; color: #7c3aed; }
+.activityIcon[data-tone="violet"] { background: var(--linco-violet-soft); color: var(--linco-violet); }
 .activityIcon[data-tone="warning"] { background: var(--linco-warning-soft); color: var(--linco-warning); }
 
 .activityItem strong,
@@ -391,7 +391,7 @@
   padding: 17px;
   border: 1px solid var(--linco-border);
   border-radius: 14px;
-  background: #fff;
+  background: var(--linco-surface);
 }
 
 .summaryIcon {
@@ -461,10 +461,10 @@
   gap: 12px;
   margin: -8px 0 18px;
   padding: 10px 13px;
-  border: 1px solid #fecaca;
+  border: 1px solid var(--linco-danger-border);
   border-radius: 10px;
   background: var(--linco-danger-soft);
-  color: #b91c1c;
+  color: var(--linco-danger-strong);
   font-size: 0.72rem;
 }
 
@@ -472,8 +472,8 @@
   flex: 0 0 auto;
   padding: 5px 9px;
   border-radius: 7px;
-  background: #fff;
-  color: #b91c1c;
+  background: var(--linco-surface);
+  color: var(--linco-danger-strong);
   font-size: 0.66rem;
   font-weight: 750;
 }
@@ -484,18 +484,18 @@
   gap: 8px;
   margin: -7px 0 14px;
   padding: 10px 13px;
-  border: 1px solid #a7f3d0;
+  border: 1px solid var(--linco-success-border);
   border-radius: 10px;
   background: var(--linco-success-soft);
-  color: #047857;
+  color: var(--linco-success-strong);
   font-size: 0.72rem;
   font-weight: 650;
 }
 
 .actionFeedback[data-tone="error"] {
-  border-color: #fecaca;
+  border-color: var(--linco-danger-border);
   background: var(--linco-danger-soft);
-  color: #b91c1c;
+  color: var(--linco-danger-strong);
 }
 
 .userActions {
@@ -520,21 +520,21 @@
 }
 
 .userActionButton[data-action="promote"] {
-  border-color: #bfdbfe;
+  border-color: var(--linco-blue-border);
   background: var(--linco-blue-50);
   color: var(--linco-blue-600);
 }
 
 .userActionButton[data-action="suspend"] {
-  border-color: #fecaca;
+  border-color: var(--linco-danger-border);
   background: var(--linco-danger-soft);
-  color: #dc2626;
+  color: var(--linco-danger-strong);
 }
 
 .userActionButton[data-action="activate"] {
-  border-color: #a7f3d0;
+  border-color: var(--linco-success-border);
   background: var(--linco-success-soft);
-  color: #059669;
+  color: var(--linco-success-strong);
 }
 
 .userActionButton:disabled {
@@ -554,7 +554,7 @@
   flex: 0 0 auto;
   place-items: center;
   border-radius: 11px;
-  background: linear-gradient(135deg, #dbeafe, #eff6ff);
+  background: linear-gradient(135deg, var(--linco-blue-100), var(--linco-blue-50));
   color: var(--linco-blue-600);
   font-size: 0.69rem;
   font-weight: 800;
@@ -576,7 +576,7 @@
   width: 100%;
   height: 5px;
   border-radius: 999px;
-  background: #e8eef6;
+  background: var(--linco-chart-track);
   overflow: hidden;
 }
 
@@ -600,7 +600,7 @@
   gap: 10px;
   padding-top: 22px;
   border-bottom: 1px solid var(--linco-border);
-  background: repeating-linear-gradient(to bottom, #fff 0, #fff 54px, #eef2f7 55px);
+  background: repeating-linear-gradient(to bottom, var(--linco-surface) 0, var(--linco-surface) 54px, var(--linco-row-border) 55px);
 }
 
 .barGroup {
@@ -659,7 +659,7 @@
   padding: 19px;
   border: 1px solid var(--linco-border);
   border-radius: 15px;
-  background: #fff;
+  background: var(--linco-surface);
   box-shadow: var(--linco-shadow-sm);
 }
 
@@ -808,8 +808,8 @@
   height: 38px;
   margin-top: 18px;
   border-radius: 9px;
-  background: #fff;
-  color: var(--linco-navy-900);
+  background: var(--linco-inverse-surface);
+  color: var(--linco-inverse-text);
   font-size: 0.7rem;
   font-weight: 800;
 }

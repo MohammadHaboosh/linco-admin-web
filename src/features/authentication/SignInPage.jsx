@@ -32,7 +32,7 @@ const Brand = ({ compact = false }) => (
   </div>
 );
 
-const SignInPage = () => (
+const SignInPage = ({ onToggleTheme, theme }) => (
   <main className={styles.page}>
     <section className={styles.brandPanel}>
       <div className={styles.brandPanelInner}>
@@ -67,6 +67,15 @@ const SignInPage = () => (
     </section>
 
     <section className={styles.formPanel}>
+      <button
+        aria-label={`Switch to ${theme === "dark" ? "light" : "dark"} theme`}
+        className={styles.themeToggle}
+        onClick={onToggleTheme}
+        title={`Use ${theme === "dark" ? "light" : "dark"} theme`}
+        type="button"
+      >
+        <Icon name={theme === "dark" ? "sun" : "moon"} size={18} />
+      </button>
       <div className={styles.mobileBrand}><Brand compact /></div>
       <div className={styles.formContainer}>
         <div className={styles.formHeading}>

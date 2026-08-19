@@ -237,9 +237,9 @@
   align-items: center;
   gap: 22px;
   padding: 0 30px;
-  border-bottom: 1px solid rgba(226, 232, 240, 0.9);
-  background: rgba(255, 255, 255, 0.93);
-  box-shadow: 0 4px 18px rgba(10, 42, 84, 0.03);
+  border-bottom: 1px solid var(--linco-topbar-border);
+  background: var(--linco-topbar);
+  box-shadow: var(--linco-shadow-sm);
   backdrop-filter: blur(14px);
 }
 
@@ -276,6 +276,26 @@
   grid-column: 2;
   justify-content: flex-end;
   gap: 11px;
+}
+
+.themeToggle {
+  width: 38px;
+  height: 38px;
+  display: grid;
+  flex: 0 0 auto;
+  place-items: center;
+  border: 1px solid var(--linco-border);
+  border-radius: 11px;
+  background: var(--linco-surface-soft);
+  color: var(--linco-text-muted);
+  transition: background 170ms ease, border-color 170ms ease, color 170ms ease, transform 170ms ease;
+}
+
+.themeToggle:hover {
+  border-color: var(--linco-blue-100);
+  background: var(--linco-blue-50);
+  color: var(--linco-blue-600);
+  transform: translateY(-1px);
 }
 
 .profile {

@@ -13,17 +13,17 @@ const GrowthChart = () => (
     <svg aria-label="Active learner growth chart" className={styles.lineChart} role="img" viewBox="0 0 700 230">
       <defs>
         <linearGradient id="growthFill" x1="0" x2="0" y1="0" y2="1">
-          <stop offset="0%" stopColor="#1a56db" stopOpacity="0.22" />
-          <stop offset="100%" stopColor="#1a56db" stopOpacity="0" />
+          <stop offset="0%" stopColor="var(--linco-blue-600)" stopOpacity="0.22" />
+          <stop offset="100%" stopColor="var(--linco-blue-600)" stopOpacity="0" />
         </linearGradient>
         <filter id="pointShadow" x="-100%" y="-100%" width="300%" height="300%">
-          <feDropShadow dx="0" dy="2" stdDeviation="3" floodColor="#1a56db" floodOpacity="0.25" />
+          <feDropShadow dx="0" dy="2" stdDeviation="3" floodColor="var(--linco-blue-600)" floodOpacity="0.25" />
         </filter>
       </defs>
-      {[35, 80, 125, 170, 215].map((y) => <line key={y} x1="8" x2="692" y1={y} y2={y} stroke="#e9eef5" strokeDasharray="4 5" />)}
+      {[35, 80, 125, 170, 215].map((y) => <line key={y} x1="8" x2="692" y1={y} y2={y} stroke="var(--linco-chart-grid)" strokeDasharray="4 5" />)}
       <path d="M10 188 C70 180 86 161 130 166 S210 143 250 148 S330 105 370 116 S450 86 490 92 S570 55 610 70 S665 35 690 42 L690 222 L10 222 Z" fill="url(#growthFill)" />
-      <path d="M10 188 C70 180 86 161 130 166 S210 143 250 148 S330 105 370 116 S450 86 490 92 S570 55 610 70 S665 35 690 42" fill="none" stroke="#1a56db" strokeLinecap="round" strokeWidth="4" />
-      {[{x:130,y:166},{x:250,y:148},{x:370,y:116},{x:490,y:92},{x:610,y:70},{x:690,y:42}].map((point) => <circle key={point.x} cx={point.x} cy={point.y} fill="#fff" filter="url(#pointShadow)" r="5" stroke="#1a56db" strokeWidth="3" />)}
+      <path d="M10 188 C70 180 86 161 130 166 S210 143 250 148 S330 105 370 116 S450 86 490 92 S570 55 610 70 S665 35 690 42" fill="none" stroke="var(--linco-blue-600)" strokeLinecap="round" strokeWidth="4" />
+      {[{x:130,y:166},{x:250,y:148},{x:370,y:116},{x:490,y:92},{x:610,y:70},{x:690,y:42}].map((point) => <circle key={point.x} cx={point.x} cy={point.y} fill="var(--linco-surface)" filter="url(#pointShadow)" r="5" stroke="var(--linco-blue-600)" strokeWidth="3" />)}
     </svg>
     <div className={styles.chartLabels}><span>Mar</span><span>Apr</span><span>May</span><span>Jun</span><span>Jul</span><span>Aug</span></div>
   </>
@@ -73,10 +73,10 @@ const DashboardPage = () => (
           <div className={styles.donut}><div className={styles.donutLabel}><strong>8.4k</strong><span>Total users</span></div></div>
         </div>
         <div className={styles.legend}>
-          <div className={styles.legendItem} style={{ "--legend-color": "#1a56db" }}><i /><span>Trainees</span><strong>58%</strong></div>
-          <div className={styles.legendItem} style={{ "--legend-color": "#47bfff" }}><i /><span>Managers</span><strong>20%</strong></div>
-          <div className={styles.legendItem} style={{ "--legend-color": "#7c3aed" }}><i /><span>Owners</span><strong>13%</strong></div>
-          <div className={styles.legendItem} style={{ "--legend-color": "#dbeafe" }}><i /><span>Other roles</span><strong>9%</strong></div>
+          <div className={styles.legendItem} style={{ "--legend-color": "var(--linco-blue-600)" }}><i /><span>Trainees</span><strong>58%</strong></div>
+          <div className={styles.legendItem} style={{ "--legend-color": "var(--linco-sky-400)" }}><i /><span>Managers</span><strong>20%</strong></div>
+          <div className={styles.legendItem} style={{ "--legend-color": "var(--linco-violet)" }}><i /><span>Owners</span><strong>13%</strong></div>
+          <div className={styles.legendItem} style={{ "--legend-color": "var(--linco-blue-100)" }}><i /><span>Other roles</span><strong>9%</strong></div>
         </div>
       </Panel>
     </div>

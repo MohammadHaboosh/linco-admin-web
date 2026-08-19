@@ -10,6 +10,7 @@ import DashboardPage from "../features/dashboard/DashboardPage";
 import ReportsPage from "../features/reports/ReportsPage";
 import SettingsPage from "../features/settings/SettingsPage";
 import UsersPage from "../features/users/UsersPage";
+import useTheme from "../hooks/useTheme";
 
 const pages = {
   overview: DashboardPage,
@@ -23,6 +24,7 @@ const pages = {
 
 const App = () => {
   const [activePage, setActivePage] = useState("overview");
+  const { theme, toggleTheme } = useTheme();
   const {
     isAuthenticated,
     isInitializing,
@@ -46,7 +48,7 @@ const App = () => {
   }
 
   if (!isAuthenticated) {
-    return <SignInPage />;
+    return <SignInPage onToggleTheme={toggleTheme} theme={theme} />;
   }
 
   return (
@@ -54,6 +56,8 @@ const App = () => {
       activePage={activePage}
       onNavigate={navigate}
       onSignOut={handleSignOut}
+      onToggleTheme={toggleTheme}
+      theme={theme}
       user={user}
     >
       <ActivePage />
