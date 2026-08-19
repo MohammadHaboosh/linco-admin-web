@@ -182,6 +182,11 @@
   color: var(--linco-danger-strong);
 }
 
+.metricTrend[data-direction="neutral"] {
+  background: var(--linco-neutral-soft);
+  color: var(--linco-text-muted);
+}
+
 .metricValue {
   margin: 19px 0 3px;
   color: var(--linco-navy-900);

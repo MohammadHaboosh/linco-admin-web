@@ -8,7 +8,9 @@ const MetricCard = ({ icon, iconTone = "blue", label, value, trend, trendDirecti
         <Icon name={icon} size={21} />
       </span>
       <span className={styles.metricTrend} data-direction={trendDirection}>
-        <Icon name={trendDirection === "down" ? "arrowDown" : "arrowUp"} size={12} strokeWidth={2.4} />
+        {trendDirection !== "neutral" && (
+          <Icon name={trendDirection === "down" ? "arrowDown" : "arrowUp"} size={12} strokeWidth={2.4} />
+        )}
         {trend}
       </span>
     </div>
