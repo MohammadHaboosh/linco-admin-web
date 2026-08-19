@@ -661,6 +661,33 @@
   gap: 20px;
 }
 
+.chartLegend {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-bottom: 3px;
+  color: var(--linco-text-muted);
+  font-size: 0.64rem;
+  font-weight: 700;
+}
+
+.chartLegend span {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.chartLegend i {
+  width: 8px;
+  height: 8px;
+  border-radius: 3px;
+  background: var(--linco-blue-600);
+}
+
+.chartLegend i[data-series="completed"] {
+  background: var(--linco-blue-100);
+}
+
 .barChart {
   height: 220px;
   display: flex;
@@ -699,6 +726,22 @@
   font-size: 0.58rem;
 }
 
+.barLabels span {
+  display: grid;
+  justify-items: center;
+  gap: 2px;
+}
+
+.barLabels strong {
+  font-size: 0.58rem;
+}
+
+.barLabels small {
+  color: var(--linco-text-muted);
+  font-size: 0.54rem;
+  font-weight: 750;
+}
+
 .healthList {
   display: grid;
   gap: 18px;
@@ -715,6 +758,13 @@
 
 .healthRowHeader strong {
   color: var(--linco-navy-900);
+}
+
+.healthDetail {
+  display: block;
+  margin-top: 5px;
+  color: var(--linco-text-soft);
+  font-size: 0.6rem;
 }
 
 .reportCards {
@@ -747,6 +797,14 @@
   border-radius: 11px;
   background: var(--linco-blue-50);
   color: var(--linco-blue-600);
+}
+
+.reportKey {
+  color: var(--linco-text-soft);
+  font-size: 0.56rem;
+  font-weight: 800;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
 }
 
 .reportCard h3 {
