@@ -2,7 +2,12 @@ import Icon from "../../../components/icons/Icon";
 import StatusBadge from "../../../components/common/StatusBadge";
 import styles from "../Courses.module.css";
 
-const CourseDashboardCard = ({ course }) => {
+const CourseDashboardCard = ({
+  course,
+  isUpdatingVisibility,
+  onMakePrivate,
+  onPreview,
+}) => {
   const isPublished = course.isPublished;
   const isPublic = course.visibility === "PUBLIC";
 
@@ -75,9 +80,27 @@ const CourseDashboardCard = ({ course }) => {
             <Icon name="clock" size={14} /> {course.totalDuration}m
           </span>
         </div>
-        <button className={styles.iconButton} type="button" title="Actions">
-          <Icon name="more" size={18} />
-        </button>
+        <div className={styles.courseActions}>
+          <button
+            className={styles.previewButton}
+            onClick={() => onPreview(course)}
+            type="button"
+          >
+            <Icon name="eye" size={15} />
+            Preview
+          </button>
+          {isPublic && (
+            <button
+              className={styles.privateButton}
+              disabled={isUpdatingVisibility}
+              onClick={() => onMakePrivate(course)}
+              type="button"
+            >
+              <Icon name="lock" size={15} />
+              {isUpdatingVisibility ? "Updating..." : "Make private"}
+            </button>
+          )}
+        </div>
       </div>
     </div>
   );

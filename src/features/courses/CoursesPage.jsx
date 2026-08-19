@@ -9,7 +9,9 @@ import styles from "./Courses.module.css";
 import useCourses from "./hooks/useCourses";
 import useCourseStats from "./hooks/useCourseStats";
 import CourseDashboardCard from "./components/CourseDashboardCard";
+import CoursePreviewModal from "./components/CoursePreviewModal";
 import TagManagementModal from "./components/TagManagementModal";
+import { setCourseVisibilityRequest } from "./api/coursesApi";
 
 const PAGE_SIZE = 12;
 
@@ -18,6 +20,10 @@ const CoursesPage = () => {
   const [searchInput, setSearchInput] = useState("");
   const [search, setSearch] = useState("");
   const [status, setStatus] = useState("");
+  const [previewCourse, setPreviewCourse] = useState(null);
+  const [privacyCourse, setPrivacyCourse] = useState(null);
+  const [updatingCourseId, setUpdatingCourseId] = useState(null);
+  const [feedback, setFeedback] = useState(null);
 
   const { courses, error, isLoading, meta, retry } = useCourses({
     page,
@@ -41,10 +47,51 @@ const CoursesPage = () => {
     return () => window.clearTimeout(timeout);
   }, [searchInput]);
 
+  useEffect(() => {
+    if (!privacyCourse) return undefined;
+
+    const handleEscape = (event) => {
+      if (event.key === "Escape" && !updatingCourseId) {
+        setPrivacyCourse(null);
+      }
+    };
+
+    document.addEventListener("keydown", handleEscape);
+    return () => document.removeEventListener("keydown", handleEscape);
+  }, [privacyCourse, updatingCourseId]);
+
   const summaryValue = (value) =>
     statsLoading || statsError ? "—" : value.toLocaleString();
 
   const [isTagModalOpen, setIsTagModalOpen] = useState(false);
+
+  const makeCoursePrivate = async () => {
+    if (!privacyCourse || updatingCourseId) return;
+
+    const course = privacyCourse;
+    setUpdatingCourseId(course.id);
+    setFeedback(null);
+
+    try {
+      await setCourseVisibilityRequest(course.id, "PRIVATE");
+      setPrivacyCourse(null);
+      setFeedback({
+        tone: "success",
+        message: `“${course.title}” is now private and no longer appears in the public library.`,
+      });
+      retry();
+      retryStats();
+    } catch (requestError) {
+      setPrivacyCourse(null);
+      setFeedback({
+        tone: "error",
+        message:
+          requestError.message || "Failed to make the course private.",
+      });
+    } finally {
+      setUpdatingCourseId(null);
+    }
+  };
 
   return (
     <div className={adminStyles.page}>
@@ -64,6 +111,27 @@ const CoursesPage = () => {
           Export catalog
         </ActionButton>
       </PageHeader>
+
+      {feedback && (
+        <div
+          className={styles.feedbackBanner}
+          data-tone={feedback.tone}
+          role={feedback.tone === "error" ? "alert" : "status"}
+        >
+          <Icon
+            name={feedback.tone === "error" ? "alert" : "check"}
+            size={18}
+          />
+          <span>{feedback.message}</span>
+          <button
+            aria-label="Dismiss notification"
+            onClick={() => setFeedback(null)}
+            type="button"
+          >
+            <Icon name="close" size={16} />
+          </button>
+        </div>
+      )}
 
       <div className={styles.statsGrid}>
         <div className={adminStyles.summaryCard}>
@@ -170,7 +238,13 @@ const CoursesPage = () => {
           </div>
         ) : (
           courses.map((course) => (
-            <CourseDashboardCard key={course.id} course={course} />
+            <CourseDashboardCard
+              course={course}
+              isUpdatingVisibility={updatingCourseId === course.id}
+              key={course.id}
+              onMakePrivate={setPrivacyCourse}
+              onPreview={setPreviewCourse}
+            />
           ))
         )}
       </div>
@@ -190,6 +264,65 @@ const CoursesPage = () => {
         isOpen={isTagModalOpen}
         onClose={() => setIsTagModalOpen(false)}
       />
+
+      {previewCourse && (
+        <CoursePreviewModal
+          course={previewCourse}
+          onClose={() => setPreviewCourse(null)}
+        />
+      )}
+
+      {privacyCourse && (
+        <div
+          className={styles.confirmationOverlay}
+          onMouseDown={(event) => {
+            if (
+              event.target === event.currentTarget &&
+              !updatingCourseId
+            ) {
+              setPrivacyCourse(null);
+            }
+          }}
+          role="presentation"
+        >
+          <section
+            aria-describedby="privacy-confirmation-description"
+            aria-labelledby="privacy-confirmation-title"
+            aria-modal="true"
+            className={styles.confirmationDialog}
+            role="dialog"
+          >
+            <div className={styles.confirmationIcon}>
+              <Icon name="lock" size={24} />
+            </div>
+            <h2 id="privacy-confirmation-title">Make this course private?</h2>
+            <p id="privacy-confirmation-description">
+              <strong>{privacyCourse.title}</strong> will be removed from the
+              public library. The course and its existing content will not be
+              deleted.
+            </p>
+            <div className={styles.confirmationActions}>
+              <button
+                className={commonStyles.buttonSecondary}
+                disabled={Boolean(updatingCourseId)}
+                onClick={() => setPrivacyCourse(null)}
+                type="button"
+              >
+                Cancel
+              </button>
+              <button
+                className={styles.confirmPrivateButton}
+                disabled={Boolean(updatingCourseId)}
+                onClick={makeCoursePrivate}
+                type="button"
+              >
+                <Icon name="lock" size={16} />
+                {updatingCourseId ? "Making private..." : "Make private"}
+              </button>
+            </div>
+          </section>
+        </div>
+      )}
     </div>
   );
 };

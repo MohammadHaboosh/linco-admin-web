@@ -155,10 +155,12 @@
 
 .cardFooter {
   border-top: 1px solid var(--linco-border);
-  padding-top: 16px;
+  padding: 14px 16px;
   display: flex;
   justify-content: space-between;
   align-items: center;
+  flex-wrap: wrap;
+  gap: 12px;
 }
 
 .courseMeta {
@@ -174,6 +176,66 @@
   display: flex;
   align-items: center;
   gap: 4px;
+}
+
+.courseActions {
+  width: 100%;
+  display: flex;
+  gap: 8px;
+}
+
+.previewButton,
+.privateButton,
+.confirmPrivateButton {
+  min-height: 36px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 7px;
+  border-radius: 9px;
+  font-size: 0.72rem;
+  font-weight: 800;
+  transition:
+    background 160ms ease,
+    border-color 160ms ease,
+    color 160ms ease,
+    transform 160ms ease;
+}
+
+.previewButton,
+.privateButton {
+  flex: 1;
+  padding: 0 11px;
+}
+
+.previewButton {
+  border: 1px solid var(--linco-blue-border);
+  background: var(--linco-blue-50);
+  color: var(--linco-blue-600);
+}
+
+.privateButton {
+  border: 1px solid var(--linco-border);
+  background: var(--linco-surface-soft);
+  color: var(--linco-navy-900);
+}
+
+.previewButton:hover,
+.privateButton:hover:not(:disabled),
+.confirmPrivateButton:hover:not(:disabled) {
+  transform: translateY(-1px);
+}
+
+.privateButton:hover:not(:disabled) {
+  border-color: var(--linco-warning);
+  background: var(--linco-warning-soft);
+  color: var(--linco-warning-strong);
+}
+
+.privateButton:disabled,
+.confirmPrivateButton:disabled {
+  cursor: wait;
+  opacity: 0.65;
 }
 
 .statusIndicators {
@@ -201,6 +263,110 @@
   color: var(--linco-danger-strong);
   font-size: 0.78rem;
   font-weight: 650;
+}
+
+.feedbackBanner {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 18px;
+  padding: 12px 14px;
+  border: 1px solid var(--linco-success-border);
+  border-radius: var(--linco-radius-md);
+  background: var(--linco-success-soft);
+  color: var(--linco-success-strong);
+  font-size: 0.78rem;
+  font-weight: 700;
+}
+
+.feedbackBanner[data-tone="error"] {
+  border-color: var(--linco-danger-border);
+  background: var(--linco-danger-soft);
+  color: var(--linco-danger-strong);
+}
+
+.feedbackBanner > span {
+  flex: 1;
+}
+
+.feedbackBanner > button {
+  width: 28px;
+  height: 28px;
+  display: grid;
+  flex: 0 0 auto;
+  place-items: center;
+  border-radius: 8px;
+  background: transparent;
+  color: currentColor;
+}
+
+.feedbackBanner > button:hover {
+  background: rgba(255, 255, 255, 0.45);
+}
+
+.confirmationOverlay {
+  position: fixed;
+  inset: 0;
+  z-index: 1300;
+  display: grid;
+  place-items: center;
+  padding: 20px;
+  background: var(--linco-modal-overlay);
+  backdrop-filter: blur(5px);
+}
+
+.confirmationDialog {
+  width: min(440px, 100%);
+  padding: 28px;
+  border: 1px solid var(--linco-border);
+  border-radius: var(--linco-radius-xl);
+  background: var(--linco-surface);
+  box-shadow: var(--linco-shadow-lg);
+  text-align: center;
+}
+
+.confirmationIcon {
+  width: 52px;
+  height: 52px;
+  display: grid;
+  margin: 0 auto 16px;
+  place-items: center;
+  border-radius: 15px;
+  background: var(--linco-warning-soft);
+  color: var(--linco-warning-strong);
+}
+
+.confirmationDialog h2 {
+  margin-bottom: 8px;
+  color: var(--linco-navy-900);
+  font-size: 1.15rem;
+}
+
+.confirmationDialog p {
+  margin-bottom: 22px;
+  color: var(--linco-text-muted);
+  font-size: 0.8rem;
+}
+
+.confirmationDialog p strong {
+  color: var(--linco-text);
+}
+
+.confirmationActions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 9px;
+}
+
+.confirmationActions > button {
+  min-width: 120px;
+  min-height: 40px;
+}
+
+.confirmPrivateButton {
+  padding: 0 15px;
+  background: var(--linco-warning);
+  color: #231300;
 }
 /* ================= Tag Management Modal ================= */
 .modalOverlay {
