@@ -1,51 +1,197 @@
+import { useEffect, useState } from "react";
 import Icon from "../../components/icons/Icon";
 import commonStyles from "../../components/common/Common.module.css";
 import PageHeader, { ActionButton } from "../../components/common/PageHeader";
-import StatusBadge from "../../components/common/StatusBadge";
 import { Pagination, TableTools } from "../../components/common/TableTools";
-import { courses } from "../../data/mockData";
-import styles from "../../styles/AdminPages.module.css";
+import adminStyles from "../../styles/AdminPages.module.css";
+import styles from "./Courses.module.css";
 
-const statusTone = (status) => status === "Published" ? "success" : status === "Review" ? "warning" : "neutral";
+import useCourses from "./hooks/useCourses";
+import useCourseStats from "./hooks/useCourseStats";
+import CourseDashboardCard from "./components/CourseDashboardCard";
+import TagManagementModal from "./components/TagManagementModal";
 
-const CoursesPage = () => (
-  <div className={styles.page}>
-    <PageHeader
-      description="Moderate shared learning content and monitor course engagement throughout the marketplace."
-      eyebrow="Learning administration"
-      title="Course library"
-    >
-      <ActionButton icon="download" variant="secondary">Export catalog</ActionButton>
-      <ActionButton icon="plus">Create course</ActionButton>
-    </PageHeader>
+const PAGE_SIZE = 12;
 
-    <div className={styles.summaryStrip}>
-      <div className={styles.summaryCard}><span className={styles.summaryIcon}><Icon name="courses" size={20} /></span><div><strong>412</strong><span>Published courses</span></div></div>
-      <div className={styles.summaryCard}><span className={styles.summaryIcon}><Icon name="clock" size={20} /></span><div><strong>18</strong><span>Waiting for review</span></div></div>
-      <div className={styles.summaryCard}><span className={styles.summaryIcon}><Icon name="users" size={20} /></span><div><strong>4,408</strong><span>Course enrollments</span></div></div>
+const CoursesPage = () => {
+  const [page, setPage] = useState(1);
+  const [searchInput, setSearchInput] = useState("");
+  const [search, setSearch] = useState("");
+  const [status, setStatus] = useState("");
+
+  const { courses, error, isLoading, meta, retry } = useCourses({
+    page,
+    search,
+    status,
+    take: PAGE_SIZE,
+  });
+
+  const {
+    stats,
+    isLoading: statsLoading,
+    error: statsError,
+    retry: retryStats,
+  } = useCourseStats();
+
+  useEffect(() => {
+    const timeout = window.setTimeout(() => {
+      setPage(1);
+      setSearch(searchInput.trim());
+    }, 350);
+    return () => window.clearTimeout(timeout);
+  }, [searchInput]);
+
+  const summaryValue = (value) =>
+    statsLoading || statsError ? "—" : value.toLocaleString();
+
+  const [isTagModalOpen, setIsTagModalOpen] = useState(false);
+
+  return (
+    <div className={adminStyles.page}>
+      <PageHeader
+        description="Moderate shared learning content and monitor course engagement throughout the marketplace."
+        eyebrow="Learning administration"
+        title="Course Library"
+      >
+        <ActionButton
+          icon="external"
+          variant="secondary"
+          onClick={() => setIsTagModalOpen(true)}
+        >
+          Manage Tags
+        </ActionButton>
+        <ActionButton icon="download" variant="secondary">
+          Export catalog
+        </ActionButton>
+      </PageHeader>
+
+      <div className={styles.statsGrid}>
+        <div className={adminStyles.summaryCard}>
+          <span className={adminStyles.summaryIcon}>
+            <Icon name="courses" size={20} />
+          </span>
+          <div>
+            <strong>{summaryValue(stats.totalCourses)}</strong>
+            <span>Total Courses</span>
+          </div>
+        </div>
+        <div className={adminStyles.summaryCard}>
+          <span className={adminStyles.summaryIcon}>
+            <Icon name="check" size={20} />
+          </span>
+          <div>
+            <strong>{summaryValue(stats.publishedCourses)}</strong>
+            <span>Published</span>
+          </div>
+        </div>
+        <div className={adminStyles.summaryCard}>
+          <span className={adminStyles.summaryIcon}>
+            <Icon name="clock" size={20} />
+          </span>
+          <div>
+            <strong>{summaryValue(stats.draftCourses)}</strong>
+            <span>Drafts</span>
+          </div>
+        </div>
+        <div className={adminStyles.summaryCard}>
+          <span className={adminStyles.summaryIcon}>
+            <Icon name="users" size={20} />
+          </span>
+          <div>
+            <strong>{summaryValue(stats.totalEnrollments)}</strong>
+            <span>Enrollments</span>
+          </div>
+        </div>
+        <div className={adminStyles.summaryCard}>
+          <span className={adminStyles.summaryIcon}>
+            <Icon name="globe" size={20} />
+          </span>
+          <div>
+            <strong>{summaryValue(stats.publicCourses)}</strong>
+            <span>Public Courses</span>
+          </div>
+        </div>
+        <div className={adminStyles.summaryCard}>
+          <span className={adminStyles.summaryIcon}>
+            <Icon name="lock" size={20} />
+          </span>
+          <div>
+            <strong>{summaryValue(stats.privateCourses)}</strong>
+            <span>Private Courses</span>
+          </div>
+        </div>
+      </div>
+
+      {statsError && (
+        <div className={adminStyles.statsError} role="alert">
+          <span>{statsError}</span>
+          <button onClick={retryStats} type="button">
+            Try again
+          </button>
+        </div>
+      )}
+
+      <TableTools
+        placeholder="Search title or description..."
+        searchValue={searchInput}
+        onSearchChange={setSearchInput}
+        showFilters={false}
+      >
+        <label className={commonStyles.filterField}>
+          <span>Visibility</span>
+          <select
+            className={commonStyles.select}
+            onChange={(e) => {
+              setPage(1);
+              setStatus(e.target.value);
+            }}
+            value={status}
+          >
+            <option value="">All Visibility</option>
+            <option value="PUBLIC">Public</option>
+            <option value="PRIVATE">Private</option>
+          </select>
+        </label>
+      </TableTools>
+
+      <div className={styles.coursesGrid}>
+        {isLoading ? (
+          <div className={styles.stateBox}>Loading courses...</div>
+        ) : error ? (
+          <div className={styles.stateBox}>
+            <span style={{ color: "red", marginBottom: "10px" }}>{error}</span>
+            <button className={commonStyles.buttonSecondary} onClick={retry}>
+              Retry
+            </button>
+          </div>
+        ) : courses.length === 0 ? (
+          <div className={styles.stateBox}>
+            No courses found matching your criteria.
+          </div>
+        ) : (
+          courses.map((course) => (
+            <CourseDashboardCard key={course.id} course={course} />
+          ))
+        )}
+      </div>
+
+      {!isLoading && !error && courses.length > 0 && (
+        <Pagination
+          hasNextPage={meta.hasNextPage}
+          hasPreviousPage={meta.hasPreviousPage}
+          label={`Showing ${(meta.page - 1) * meta.take + 1}–${Math.min(meta.page * meta.take, meta.itemCount)} of ${meta.itemCount} courses`}
+          onPageChange={setPage}
+          page={meta.page}
+          pageCount={meta.pageCount}
+        />
+      )}
+
+      <TagManagementModal
+        isOpen={isTagModalOpen}
+        onClose={() => setIsTagModalOpen(false)}
+      />
     </div>
-
-    <TableTools placeholder="Search title, category or creator..." statusLabel="All publishing states" />
-    <div className={commonStyles.tableWrap}>
-      <table className={commonStyles.table}>
-        <thead><tr><th>Course</th><th>Creator</th><th>Learners</th><th>Completion</th><th>Rating</th><th>Status</th><th aria-label="Actions" /></tr></thead>
-        <tbody>
-          {courses.map((course) => (
-            <tr key={course.id}>
-              <td className={styles.courseTitleCell}><div className={commonStyles.entity}><span className={styles.courseCode}>{course.code}</span><div><p className={commonStyles.entityName}>{course.title}</p><p className={commonStyles.entityMeta}>{course.category}</p></div></div></td>
-              <td>{course.creator}</td>
-              <td>{course.learners.toLocaleString()}</td>
-              <td className={styles.progressCell}><div className={styles.progressMeta}><span>Progress</span><strong>{course.completion}%</strong></div><div className={styles.progressTrack}><div className={styles.progressFill} style={{ width: `${course.completion}%` }} /></div></td>
-              <td>★ {course.rating}</td>
-              <td><StatusBadge tone={statusTone(course.status)}>{course.status}</StatusBadge></td>
-              <td><button className={commonStyles.iconButton} title={`Open actions for ${course.title}`} type="button"><Icon name="more" size={18} /></button></td>
-            </tr>
-          ))}
-        </tbody>
-      </table>
-    </div>
-    <Pagination label="Showing 1–6 of 438 courses" />
-  </div>
-);
+  );
+};
 
 export default CoursesPage;
