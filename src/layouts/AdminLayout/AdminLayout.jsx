@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import Icon from "../../components/icons/Icon";
 import { navigationSections, pageTitles } from "../../config/navigation";
 import {
@@ -7,7 +7,102 @@ import {
 } from "../../features/authentication/utils/authUser";
 import styles from "./AdminLayout.module.css";
 
-const Sidebar = ({ activePage, isOpen, onClose, onNavigate, onSignOut }) => (
+const supportContacts = [
+  { name: "Mohammad Haboosh", phone: "00963995718434" },
+  { name: "Mohammad Al Homsi", phone: "00963935038135" },
+  { name: "Zain Nahlawy", phone: "00963954179314" },
+  { name: "Mohammad Yazan Mahfouz", phone: "00963933803688" },
+];
+
+const SupportDialog = ({ onClose }) => {
+  const closeButtonRef = useRef(null);
+
+  useEffect(() => {
+    const previouslyFocusedElement = document.activeElement;
+    const previousOverflow = document.body.style.overflow;
+    document.body.style.overflow = "hidden";
+    closeButtonRef.current?.focus();
+
+    const handleKeyDown = (event) => {
+      if (event.key === "Escape") onClose();
+    };
+
+    document.addEventListener("keydown", handleKeyDown);
+    return () => {
+      document.removeEventListener("keydown", handleKeyDown);
+      document.body.style.overflow = previousOverflow;
+      previouslyFocusedElement?.focus();
+    };
+  }, [onClose]);
+
+  return (
+    <div
+      className={styles.supportOverlay}
+      onMouseDown={(event) => {
+        if (event.target === event.currentTarget) onClose();
+      }}
+      role="presentation"
+    >
+      <section
+        aria-describedby="support-dialog-description"
+        aria-labelledby="support-dialog-title"
+        aria-modal="true"
+        className={styles.supportDialog}
+        role="dialog"
+      >
+        <div className={styles.supportDialogHeader}>
+          <span className={styles.supportDialogIcon}>
+            <Icon name="sparkles" size={22} />
+          </span>
+          <div>
+            <p className={styles.supportEyebrow}>Platform assistance</p>
+            <h2 id="support-dialog-title">Contact the IT team</h2>
+          </div>
+          <button
+            aria-label="Close support contacts"
+            className={styles.supportCloseButton}
+            onClick={onClose}
+            ref={closeButtonRef}
+            type="button"
+          >
+            <Icon name="close" size={19} />
+          </button>
+        </div>
+
+        <p className={styles.supportDescription} id="support-dialog-description">
+          Call any member of our technical team for platform support.
+        </p>
+
+        <div className={styles.supportContactList}>
+          {supportContacts.map((contact) => (
+            <a
+              className={styles.supportContact}
+              href={`tel:+${contact.phone.slice(2)}`}
+              key={contact.phone}
+            >
+              <span className={styles.supportContactAvatar} aria-hidden="true">
+                {contact.name
+                  .split(" ")
+                  .map((part) => part[0])
+                  .slice(0, 2)
+                  .join("")}
+              </span>
+              <span className={styles.supportContactDetails}>
+                <strong>{contact.name}</strong>
+                <span>{contact.phone}</span>
+              </span>
+              <span className={styles.supportPhoneIcon} aria-hidden="true">
+                <Icon name="phone" size={18} />
+              </span>
+            </a>
+          ))}
+        </div>
+      </section>
+    </div>
+  );
+};
+
+const Sidebar = ({ activePage, isOpen, onClose, onNavigate, onOpenSupport, onSignOut }) => (
   <>
     <button
       aria-label="Close navigation"
@@ -63,8 +158,8 @@ const Sidebar = ({ activePage, isOpen, onClose, onNavigate, onSignOut }) => (
         <div className={styles.supportCard}>
           <span className={styles.supportIcon}><Icon name="sparkles" size={18} /></span>
           <p>Need platform support?</p>
-          <span>Our technical team is one message away.</span>
-          <button type="button">Open support</button>
+          <span>Our technical team is one call away.</span>
+          <button onClick={onOpenSupport} type="button">Open support</button>
         </div>
         <button className={styles.signOut} onClick={onSignOut} type="button">
           <Icon name="logout" size={18} />
@@ -77,6 +172,7 @@ const Sidebar = ({ activePage, isOpen, onClose, onNavigate, onSignOut }) => (
 
 const AdminLayout = ({ activePage, children, onNavigate, onSignOut, onToggleTheme, theme, user }) => {
   const [sidebarOpen, setSidebarOpen] = useState(false);
+  const [supportOpen, setSupportOpen] = useState(false);
   const userDisplayName = getUserDisplayName(user);
   const userInitials = getUserInitials(user);
 
@@ -87,8 +183,14 @@ const AdminLayout = ({ activePage, children, onNavigate, onSignOut, onToggleThem
         isOpen={sidebarOpen}
         onClose={() => setSidebarOpen(false)}
         onNavigate={onNavigate}
+        onOpenSupport={() => {
+          setSidebarOpen(false);
+          setSupportOpen(true);
+        }}
         onSignOut={onSignOut}
       />
+
+      {supportOpen && <SupportDialog onClose={() => setSupportOpen(false)} />}
 
       <div className={styles.mainColumn}>
         <header className={styles.topbar}>
