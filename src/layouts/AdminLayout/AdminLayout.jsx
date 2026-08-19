@@ -70,14 +70,13 @@ const SupportDialog = ({ onClose }) => {
         </div>
 
         <p className={styles.supportDescription} id="support-dialog-description">
-          Call any member of our technical team for platform support.
+          Contact any member of our technical team for platform support.
         </p>
 
         <div className={styles.supportContactList}>
           {supportContacts.map((contact) => (
-            <a
+            <div
               className={styles.supportContact}
-              href={`tel:+${contact.phone.slice(2)}`}
               key={contact.phone}
             >
               <span className={styles.supportContactAvatar} aria-hidden="true">
@@ -91,10 +90,7 @@ const SupportDialog = ({ onClose }) => {
                 <strong>{contact.name}</strong>
                 <span>{contact.phone}</span>
               </span>
-              <span className={styles.supportPhoneIcon} aria-hidden="true">
-                <Icon name="phone" size={18} />
-              </span>
-            </a>
+            </div>
           ))}
         </div>
       </section>
