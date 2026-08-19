@@ -3,12 +3,10 @@ import AdminLayout from "../layouts/AdminLayout/AdminLayout";
 import SessionLoadingPage from "../features/authentication/SessionLoadingPage";
 import SignInPage from "../features/authentication/SignInPage";
 import useAuthSession from "../features/authentication/hooks/useAuthSession";
-import AuditLogPage from "../features/audit/AuditLogPage";
 import CompaniesPage from "../features/companies/CompaniesPage";
 import CoursesPage from "../features/courses/CoursesPage";
 import DashboardPage from "../features/dashboard/DashboardPage";
 import ReportsPage from "../features/reports/ReportsPage";
-import SettingsPage from "../features/settings/SettingsPage";
 import UsersPage from "../features/users/UsersPage";
 import useTheme from "../hooks/useTheme";
 
@@ -18,8 +16,6 @@ const pages = {
   users: UsersPage,
   courses: CoursesPage,
   reports: ReportsPage,
-  audit: AuditLogPage,
-  settings: SettingsPage,
 };
 
 const App = () => {

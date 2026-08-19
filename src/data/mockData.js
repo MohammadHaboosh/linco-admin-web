@@ -22,12 +22,3 @@ export const activity = [
   { icon: "users", tone: "violet", title: "New owner joined", detail: "Sara Ahmad created a workspace.", time: "2 hrs ago" },
   { icon: "alert", tone: "warning", title: "Usage threshold reached", detail: "Nexa Academy used 90% of seats.", time: "5 hrs ago" },
 ];
-
-export const auditLogs = [
-  { id: "LOG-8241", actor: "Omar Khalil", action: "Approved company", target: "TechCorp", ip: "185.194.86.12", time: "Today, 10:42 AM", risk: "Normal" },
-  { id: "LOG-8240", actor: "Sara Ahmad", action: "Updated user role", target: "Lina Mansour", ip: "185.112.44.08", time: "Today, 10:18 AM", risk: "Normal" },
-  { id: "LOG-8239", actor: "System", action: "Blocked sign-in attempt", target: "Unknown account", ip: "91.214.72.19", time: "Today, 9:54 AM", risk: "Review" },
-  { id: "LOG-8238", actor: "Omar Khalil", action: "Suspended workspace", target: "Future Vision", ip: "185.194.86.12", time: "Today, 9:36 AM", risk: "Elevated" },
-  { id: "LOG-8237", actor: "System", action: "Generated report", target: "Weekly platform report", ip: "Internal", time: "Today, 8:00 AM", risk: "Normal" },
-  { id: "LOG-8236", actor: "Hadi Youssef", action: "Published course", target: "Agile Project Leadership", ip: "178.253.62.71", time: "Yesterday, 6:22 PM", risk: "Normal" },
-];

@@ -14,13 +14,6 @@ export const navigationSections = [
       { id: "reports", label: "Reports", icon: "reports" },
     ],
   },
-  {
-    label: "System",
-    items: [
-      { id: "audit", label: "Audit Log", icon: "audit" },
-      { id: "settings", label: "Settings", icon: "settings" },
-    ],
-  },
 ];
 
 export const pageTitles = navigationSections
