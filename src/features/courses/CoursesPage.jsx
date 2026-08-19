@@ -107,9 +107,6 @@ const CoursesPage = () => {
         >
           Manage Tags
         </ActionButton>
-        <ActionButton icon="download" variant="secondary">
-          Export catalog
-        </ActionButton>
       </PageHeader>
 
       {feedback && (
