@@ -8,6 +8,8 @@ import {
   subscribeToAuthStore,
 } from "../store/authStore";
 
+const isAdminUser = (user) => user?.role?.trim().toUpperCase() === "ADMIN";
+
 const useAuthSession = () => {
   const session = useSyncExternalStore(
     subscribeToAuthStore,
@@ -24,6 +26,11 @@ const useAuthSession = () => {
 
     getCurrentUserRequest({ signal: controller.signal })
       .then((user) => {
+        if (!isAdminUser(user)) {
+          clearAuthSession();
+          return;
+        }
+
         setAuthSession({ user });
       })
       .catch((error) => {
