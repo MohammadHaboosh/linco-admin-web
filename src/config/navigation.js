@@ -11,7 +11,6 @@ export const navigationSections = [
     label: "Learning",
     items: [
       { id: "courses", label: "Course Library", icon: "courses" },
-      { id: "reports", label: "Reports", icon: "reports" },
     ],
   },
 ];

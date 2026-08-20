@@ -3,6 +3,7 @@ import PageHeader from "../../components/common/PageHeader";
 import Panel from "../../components/common/Panel";
 import commonStyles from "../../components/common/Common.module.css";
 import styles from "../../styles/AdminPages.module.css";
+import DashboardReportsSection from "../reports/DashboardReportsSection";
 import useDashboardAnalytics from "./hooks/useDashboardAnalytics";
 
 const numberFormatter = new Intl.NumberFormat(undefined, {
@@ -258,6 +259,8 @@ const DashboardPage = () => {
           </div>
         </>
       )}
+
+      <DashboardReportsSection />
     </div>
   );
 };

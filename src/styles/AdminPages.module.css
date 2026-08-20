@@ -661,6 +661,10 @@
   gap: 20px;
 }
 
+.overviewReports {
+  margin-top: 20px;
+}
+
 .chartLegend {
   display: flex;
   flex-wrap: wrap;
@@ -767,71 +771,6 @@
   font-size: 0.6rem;
 }
 
-.reportCards {
-  display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: 14px;
-  margin-top: 20px;
-}
-
-.reportCard {
-  padding: 19px;
-  border: 1px solid var(--linco-border);
-  border-radius: 15px;
-  background: var(--linco-surface);
-  box-shadow: var(--linco-shadow-sm);
-}
-
-.reportCardTop {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 10px;
-}
-
-.reportCardIcon {
-  width: 39px;
-  height: 39px;
-  display: grid;
-  place-items: center;
-  border-radius: 11px;
-  background: var(--linco-blue-50);
-  color: var(--linco-blue-600);
-}
-
-.reportKey {
-  color: var(--linco-text-soft);
-  font-size: 0.56rem;
-  font-weight: 800;
-  letter-spacing: 0.06em;
-  text-transform: uppercase;
-}
-
-.reportCard h3 {
-  margin: 16px 0 5px;
-  color: var(--linco-navy-900);
-  font-size: 0.83rem;
-}
-
-.reportCard p {
-  margin: 0;
-  color: var(--linco-text-muted);
-  font-size: 0.66rem;
-  line-height: 1.6;
-}
-
-.reportCard button {
-  display: inline-flex;
-  align-items: center;
-  gap: 5px;
-  margin-top: 15px;
-  padding: 0;
-  background: transparent;
-  color: var(--linco-blue-600);
-  font-size: 0.66rem;
-  font-weight: 800;
-}
-
 @media (max-width: 1180px) {
   .insightBanner,
   .dashboardGrid,
@@ -849,8 +788,7 @@
 }
 
 @media (max-width: 850px) {
-  .summaryStrip,
-  .reportCards {
+  .summaryStrip {
     grid-template-columns: 1fr;
   }
 

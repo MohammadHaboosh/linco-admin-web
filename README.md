@@ -8,7 +8,6 @@ Static React/Vite interface for the LinCo platform administration dashboard.
 - Companies
 - Users
 - Course library
-- Reports
 - Audit log
 - Settings
 

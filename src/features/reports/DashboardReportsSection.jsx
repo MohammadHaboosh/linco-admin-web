@@ -1,5 +1,3 @@
-import Icon from "../../components/icons/Icon";
-import PageHeader from "../../components/common/PageHeader";
 import Panel from "../../components/common/Panel";
 import styles from "../../styles/AdminPages.module.css";
 import useDashboardReports from "./hooks/useDashboardReports";
@@ -16,12 +14,6 @@ const monthFormatter = new Intl.DateTimeFormat(undefined, {
   month: "long",
   year: "numeric",
 });
-
-const reportIcons = {
-  COMPANY_ADOPTION: "companies",
-  CONTENT_PERFORMANCE: "courses",
-  LEARNER_PERFORMANCE: "users",
-};
 
 const formatNumber = (value) => numberFormatter.format(value);
 const formatPercentage = (value) => `${percentageFormatter.format(value)}%`;
@@ -163,34 +155,11 @@ const PlatformHealth = ({ health }) => (
   </div>
 );
 
-const ReportCatalog = ({ reports }) => (
-  <div className={styles.reportCards}>
-    {reports.map((report) => (
-      <article className={styles.reportCard} key={report.key}>
-        <div className={styles.reportCardTop}>
-          <span className={styles.reportCardIcon}>
-            <Icon name={reportIcons[report.key] || "reports"} size={19} />
-          </span>
-          <span className={styles.reportKey}>{report.key.replaceAll("_", " ")}</span>
-        </div>
-        <h3>{report.title}</h3>
-        <p>{report.description}</p>
-      </article>
-    ))}
-  </div>
-);
-
-const ReportsPage = () => {
+const DashboardReportsSection = () => {
   const { error, isLoading, reports, retry } = useDashboardReports();
 
   return (
-    <div className={styles.page}>
-      <PageHeader
-        description="Track learning adoption, completion quality, and system performance across the platform."
-        eyebrow="Analytics center"
-        title="Reports"
-      />
-
+    <section aria-label="Platform reports" className={styles.overviewReports}>
       {isLoading ? (
         <div className={styles.dashboardState} role="status">Loading reports...</div>
       ) : error ? (
@@ -200,30 +169,26 @@ const ReportsPage = () => {
           <button onClick={retry} type="button">Try again</button>
         </div>
       ) : reports && (
-        <>
-          <div className={styles.reportGrid}>
-            <Panel
-              action={<span className={styles.periodBadge}>{formatEnum(reports.learningEngagement.period)}</span>}
-              subtitle="Active learners compared with completed learning paths"
-              title="Learning engagement"
-            >
-              <LearningEngagement engagement={reports.learningEngagement} />
-            </Panel>
+        <div className={styles.reportGrid}>
+          <Panel
+            action={<span className={styles.periodBadge}>{formatEnum(reports.learningEngagement.period)}</span>}
+            subtitle="Active learners compared with completed learning paths"
+            title="Learning engagement"
+          >
+            <LearningEngagement engagement={reports.learningEngagement} />
+          </Panel>
 
-            <Panel
-              action={<span className={styles.periodBadge}>{formatEnum(reports.platformHealth.period)}</span>}
-              subtitle={`Operational targets from ${formatMonth(reports.platformHealth.periodStart)}`}
-              title="Platform health"
-            >
-              <PlatformHealth health={reports.platformHealth} />
-            </Panel>
-          </div>
-
-          <ReportCatalog reports={reports.reportCatalog} />
-        </>
+          <Panel
+            action={<span className={styles.periodBadge}>{formatEnum(reports.platformHealth.period)}</span>}
+            subtitle={`Operational targets from ${formatMonth(reports.platformHealth.periodStart)}`}
+            title="Platform health"
+          >
+            <PlatformHealth health={reports.platformHealth} />
+          </Panel>
+        </div>
       )}
-    </div>
+    </section>
   );
 };
 
-export default ReportsPage;
+export default DashboardReportsSection;

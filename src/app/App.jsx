@@ -6,7 +6,6 @@ import useAuthSession from "../features/authentication/hooks/useAuthSession";
 import CompaniesPage from "../features/companies/CompaniesPage";
 import CoursesPage from "../features/courses/CoursesPage";
 import DashboardPage from "../features/dashboard/DashboardPage";
-import ReportsPage from "../features/reports/ReportsPage";
 import UsersPage from "../features/users/UsersPage";
 import useTheme from "../hooks/useTheme";
 
@@ -15,7 +14,6 @@ const pages = {
   companies: CompaniesPage,
   users: UsersPage,
   courses: CoursesPage,
-  reports: ReportsPage,
 };
 
 const App = () => {

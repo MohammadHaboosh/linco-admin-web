@@ -46,14 +46,6 @@ const isPlatformHealth = (health) => (
   && isFiniteNumber(health.supportResponseSla.targetHours)
 );
 
-const isCatalogItem = (item) => (
-  item
-  && typeof item === "object"
-  && typeof item.key === "string"
-  && typeof item.title === "string"
-  && typeof item.description === "string"
-);
-
 const isReportsPayload = (data) => (
   data
   && typeof data === "object"
@@ -62,8 +54,6 @@ const isReportsPayload = (data) => (
   && Array.isArray(data.learningEngagement.points)
   && data.learningEngagement.points.every(isEngagementPoint)
   && isPlatformHealth(data.platformHealth)
-  && Array.isArray(data.reportCatalog)
-  && data.reportCatalog.every(isCatalogItem)
 );
 
 export const getDashboardReportsRequest = async ({ signal } = {}) => {

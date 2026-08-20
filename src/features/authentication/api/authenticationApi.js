@@ -1,6 +1,7 @@
-import { apiFetch } from "../../../api/apiFetch";
+import { apiFetch, buildApiUrl } from "../../../api/apiFetch";
 
 const SIGN_IN_PATH = "authentication/sign-in";
+const GOOGLE_SIGN_IN_PATH = "authentication/google";
 const CURRENT_USER_PATH = "/users/me";
 
 const readResponseBody = async (response) => {
@@ -24,6 +25,8 @@ export class AuthenticationError extends Error {
     this.status = status;
   }
 }
+
+export const getGoogleSignInUrl = () => buildApiUrl(GOOGLE_SIGN_IN_PATH);
 
 export const signInRequest = async ({ email, password }, { signal } = {}) => {
   let response;

@@ -5,7 +5,7 @@ export const AUTH_SESSION_EXPIRED_EVENT = "linco:auth-session-expired";
 let refreshPromise = null;
 let refreshVersion = 0;
 
-const buildApiUrl = (path) => {
+export const buildApiUrl = (path) => {
   const pathValue = String(path);
 
   if (/^https?:\/\//i.test(pathValue)) {
