@@ -2,6 +2,8 @@ import { useEffect, useMemo, useState } from "react";
 import Icon from "../../../components/icons/Icon";
 import StatusBadge from "../../../components/common/StatusBadge";
 import { getCoursePreviewRequest } from "../api/coursesApi";
+import { formatHlsUrl } from "../utils/videoUtils";
+import HlsVideoPlayer from "./HlsVideoPlayer";
 import styles from "./CoursePreviewModal.module.css";
 
 const getChoiceText = (choice) => {
@@ -324,22 +326,21 @@ const LessonPreview = ({ course, lesson, section }) => (
 
     {lesson.videoUrl ? (
       <div className={styles.videoShell}>
-        <video
-          controls
+        <HlsVideoPlayer
           key={lesson.id}
-          playsInline
+          lesson={lesson}
           poster={course.imagePath || undefined}
-          preload="metadata"
-          src={lesson.videoUrl}
-        >
-          Your browser does not support HTML video playback.
-        </video>
+        />
         <div className={styles.videoFooter}>
           <span>
             <Icon name="clock" size={15} />
             {formatLessonDuration(lesson.duration)}
           </span>
-          <a href={lesson.videoUrl} rel="noreferrer" target="_blank">
+          <a
+            href={formatHlsUrl(lesson.videoUrl)}
+            rel="noreferrer"
+            target="_blank"
+          >
             Open video source
             <Icon name="external" size={14} />
           </a>
