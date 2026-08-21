@@ -2,8 +2,20 @@ import Icon from "../../../components/icons/Icon";
 import StatusBadge from "../../../components/common/StatusBadge";
 import styles from "../Courses.module.css";
 
+const formatDuration = (totalSeconds) => {
+  if (!totalSeconds || isNaN(totalSeconds)) return "00:00";
+  const hours = Math.floor(totalSeconds / 3600);
+  const minutes = Math.floor((totalSeconds % 3600) / 60);
+  const seconds = Math.floor(totalSeconds % 60);
+
+  if (hours > 0) {
+    return `${String(hours).padStart(2, "0")}:${String(minutes).padStart(2, "0")}:${String(seconds).padStart(2, "0")}`;
+  }
+  return `${String(minutes).padStart(2, "0")}:${String(seconds).padStart(2, "0")}`;
+};
+
 const CourseDashboardCard = ({
-  course,
+  course = {},
   isUpdatingVisibility,
   onMakePrivate,
   onPreview,
@@ -76,8 +88,9 @@ const CourseDashboardCard = ({
           <span className={styles.metaItem} title="Total Lessons">
             <Icon name="courses" size={14} /> {course.lessonCount}
           </span>
-          <span className={styles.metaItem} title="Duration (mins)">
-            <Icon name="clock" size={14} /> {course.totalDuration}m
+          <span className={styles.metaItem} title="Duration">
+            <Icon name="clock" size={14} />{" "}
+            {formatDuration(course.totalDuration)}
           </span>
         </div>
         <div className={styles.courseActions}>
