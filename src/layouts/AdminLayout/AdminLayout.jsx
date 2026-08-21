@@ -10,7 +10,7 @@ import styles from "./AdminLayout.module.css";
 const supportContacts = [
   { name: "Mohammad Haboosh", phone: "00963995718434" },
   { name: "Mohammad Al Homsi", phone: "00963935038135" },
-  { name: "Zain Nahlawy", phone: "00963954179314" },
+  { name: "Mohammad Zain Nahlawy", phone: "00963954179314" },
   { name: "Mohammad Yazan Mahfouz", phone: "00963933803688" },
   { name: "Loulia Al Shaar", phone: "00963991744605" },
   { name: "Abrar Abo Auad", phone: "00963986807963" },
