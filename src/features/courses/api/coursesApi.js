@@ -30,7 +30,7 @@ export const getCourseStatsRequest = async ({ signal } = {}) => {
 };
 
 export const getCoursesRequest = async (
-  { page = 1, take = 10, search = "", status = "" } = {},
+  { page = 1, take = 10, search = "", visibility = "" } = {},
   { signal } = {},
 ) => {
   const parameters = new URLSearchParams({
@@ -38,7 +38,7 @@ export const getCoursesRequest = async (
     take: String(take),
   });
   if (search.trim()) parameters.set("search", search.trim());
-  if (status) parameters.set("status", status);
+  if (visibility) parameters.set("visibility", visibility);
 
   try {
     const response = await apiFetch(`/courses?${parameters.toString()}`, {

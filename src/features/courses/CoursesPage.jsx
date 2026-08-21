@@ -19,7 +19,7 @@ const CoursesPage = () => {
   const [page, setPage] = useState(1);
   const [searchInput, setSearchInput] = useState("");
   const [search, setSearch] = useState("");
-  const [status, setStatus] = useState("");
+  const [visibility, setVisibility] = useState("");
   const [previewCourse, setPreviewCourse] = useState(null);
   const [privacyCourse, setPrivacyCourse] = useState(null);
   const [updatingCourseId, setUpdatingCourseId] = useState(null);
@@ -28,7 +28,7 @@ const CoursesPage = () => {
   const { courses, error, isLoading, meta, retry } = useCourses({
     page,
     search,
-    status,
+    visibility,
     take: PAGE_SIZE,
   });
 
@@ -208,9 +208,9 @@ const CoursesPage = () => {
             className={commonStyles.select}
             onChange={(e) => {
               setPage(1);
-              setStatus(e.target.value);
+              setVisibility(e.target.value);
             }}
-            value={status}
+            value={visibility}
           >
             <option value="">All Visibility</option>
             <option value="PUBLIC">Public</option>

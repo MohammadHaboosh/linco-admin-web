@@ -10,7 +10,7 @@ const EMPTY_META = {
   hasNextPage: false,
 };
 
-const useCourses = ({ page, take, search, status }) => {
+const useCourses = ({ page, take, search, visibility }) => {
   const [requestVersion, setRequestVersion] = useState(0);
   const [state, setState] = useState({
     courses: [],
@@ -19,7 +19,7 @@ const useCourses = ({ page, take, search, status }) => {
     requestKey: "",
   });
 
-  const requestKey = `${page}:${take}:${search}:${status}:${requestVersion}`;
+  const requestKey = `${page}:${take}:${search}:${visibility}:${requestVersion}`;
   const isLoading = state.requestKey !== requestKey;
 
   const retry = useCallback(() => setRequestVersion((c) => c + 1), []);
@@ -28,7 +28,7 @@ const useCourses = ({ page, take, search, status }) => {
     const controller = new AbortController();
 
     getCoursesRequest(
-      { page, take, search, status },
+      { page, take, search, visibility },
       { signal: controller.signal },
     )
       .then(({ courses, meta }) => {
@@ -53,7 +53,7 @@ const useCourses = ({ page, take, search, status }) => {
       });
 
     return () => controller.abort();
-  }, [page, requestKey, search, status, take]);
+  }, [page, requestKey, search, take, visibility]);
 
   return { ...state, error: isLoading ? "" : state.error, isLoading, retry };
 };
